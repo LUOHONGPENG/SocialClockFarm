@@ -11,12 +11,16 @@ public class LevelManager : MonoBehaviour
 
     public GameObject pfVillager;
 
+    private bool isInit = false;
+
     public void Init()
     {
         listVillagerData.Clear();
         listVillager.Clear();
 
         InitVillager();
+
+        isInit = true;
     }
 
     #region VillagerControl
@@ -55,5 +59,22 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
+    #region TimeControl
+
+    public void TimeGo()
+    {
+        if (!isInit)
+        {
+            return;
+        }
+
+        for(int i = 0; i < listVillager.Count; i++)
+        {
+            listVillager[i].TimeGo();
+        }
+    }
+
+
+    #endregion
 
 }

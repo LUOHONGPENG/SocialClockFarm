@@ -65,7 +65,7 @@ public partial class VillagerManager
         }
     }
 
-    public void TimeGoVillager()
+    private void TimeGoVillager()
     {
         float timeDelta = Time.deltaTime;
         timerGrow -= timeDelta;

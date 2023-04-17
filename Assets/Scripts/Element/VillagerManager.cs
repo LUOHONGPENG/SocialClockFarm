@@ -24,4 +24,27 @@ public partial class VillagerManager : MonoBehaviour
     {
         tfPos.localPosition = pos;
     }
+
+    public void TimeGo()
+    {
+        TimeGoCheckDrag();
+        TimeGoVillager();
+    }
+
+
+    private void TimeGoCheckDrag()
+    {
+        if (dragManager != null)
+        {
+            dragManager.TimeGoDrag();
+            if (dragManager.isDragging)
+            {
+                srVillager.maskInteraction = SpriteMaskInteraction.None;
+            }
+            else
+            {
+                srVillager.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+            }
+        }
+    }
 }

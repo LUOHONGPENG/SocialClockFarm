@@ -11,9 +11,9 @@ public class CommonDragItem : MonoBehaviour
     protected float dragStartPosX;
     protected float dragStartPosY;
 
-    protected bool isBeingHeld = false;
+    public bool isDragging = false;
     protected bool canDrag = false;
-    protected bool isInitDrag = false;
+    public bool isInitDrag = false;
 
     //Initialize the Drag Component
     public void InitDrag()
@@ -24,7 +24,7 @@ public class CommonDragItem : MonoBehaviour
         canDrag = true;
     }
 
-    private void Update()
+    public void TimeGoDrag()
     {
         if (isInitDrag)
         {
@@ -37,7 +37,7 @@ public class CommonDragItem : MonoBehaviour
     //
     public void CheckDrag()
     {
-        if (isBeingHeld)
+        if (isDragging)
         {
             Vector3 mousePos = PublicTool.GetMousePosition2D();
             this.gameObject.transform.position = new Vector3(mousePos.x - dragStartPosX, mousePos.y - dragStartPosY, 0);
@@ -60,19 +60,17 @@ public class CommonDragItem : MonoBehaviour
                     Vector3 mousePos = PublicTool.GetMousePosition2D();
                     dragStartPosX = mousePos.x - this.transform.position.x;
                     dragStartPosY = mousePos.y - this.transform.position.y;
-                    isBeingHeld = true;
+                    isDragging = true;
                     return;
                 }
             }
-
-
         }
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (isBeingHeld)
+            if (isDragging)
             {
-                isBeingHeld = false;
+                isDragging = false;
                 DealDragDown();
             }
         }

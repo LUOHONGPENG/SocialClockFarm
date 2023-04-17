@@ -16,4 +16,9 @@ public class GameManager : MonoSingleton<GameManager>
         levelManager.Init();
     }
 
+    public void Update()
+    {
+        levelManager.TimeGo();
+    }
+
 }

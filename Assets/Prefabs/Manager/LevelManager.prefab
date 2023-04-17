@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e6114508860d694ba059135e1f50251, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tfVillager: {fileID: 1833747807840010951}
-  listVillager: []
-  pfVillager: {fileID: 696235652442252357, guid: ab349604b5eb88d47a5446ede00c0520, type: 3}
+  tfHuman: {fileID: 1833747807840010951}
+  listHuman: []
+  pfHuman: {fileID: 696235652442252357, guid: ab349604b5eb88d47a5446ede00c0520, type: 3}
   careerSchool: {fileID: 7486227270800240445}
 --- !u!1 &4312578850487840717
 GameObject:
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833747807840010951}
   m_Layer: 0
-  m_Name: tfVillager
+  m_Name: tfHuman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

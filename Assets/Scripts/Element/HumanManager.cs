@@ -1,34 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public partial class VillagerManager : MonoBehaviour
+public partial class HumanManager : MonoBehaviour
 {
+    [Header("Basic")]
     public Transform tfPos;
-    public SpriteRenderer srVillager;
+    public SpriteRenderer srHuman;
     public CommonDragItem dragManager;
+
+    [Header("UI")]
+    public Text txAge;
+    public Image imgFillEdu;
+    public Text codeEdu;
+    public Image imgFillFortune;
+    public Text codeFortune;
+
 
     private bool isInit = false;
     private SlotManager currentSlot;
 
     #region Basic
-    public void Init(VillagerData villagerData)
+    public void Init(HumanData humanData)
     {
         if (dragManager != null)
         {
-            dragManager.InitDrag(srVillager);
+            dragManager.InitDrag(srHuman);
             dragManager.dragDealAction = delegate ()
             {
                 DragDeal();
             };
         }
-        this.villagerData = villagerData;
+        this.humanData = humanData;
+        RefreshUI();
     }
 
     public void TimeGo()
     {
         TimeGoCheckDrag();
-        TimeGoVillager();
+        TimeGoData();
     }
 
     public void SetLocalPos(Vector2 pos)
@@ -54,7 +65,7 @@ public partial class VillagerManager : MonoBehaviour
                     SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
                     if (itemSlot != null && currentSlot != itemSlot)
                     {
-                        if (itemSlot.CheckVillagerValid(villagerData))
+                        if (itemSlot.CheckHumanValid(humanData))
                         {
                             //Bind the current Slot
                             currentSlot = itemSlot;
@@ -89,4 +100,18 @@ public partial class VillagerManager : MonoBehaviour
         }
     }
     #endregion
+
+    #region UIControl
+
+    public void RefreshUI()
+    {
+        txAge.text = humanData.Age.ToString();
+        imgFillEdu.fillAmount = vCurrentEdu / 100f;
+        imgFillFortune.fillAmount = vCurrentFortune / 100f;
+        codeEdu.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentEdu));
+        codeFortune.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentFortune));
+
+    }
+
+    #endregion 
 }

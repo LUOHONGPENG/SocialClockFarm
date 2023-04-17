@@ -25,17 +25,17 @@ public class SlotManager : MonoBehaviour
         this.isFilled = false;
     }
 
-    public bool CheckVillagerValid(VillagerData villagerData)
+    public bool CheckHumanValid(HumanData humanData)
     {
         if (isFilled)
         {
             return false;
         }
-        if(villagerData.Age < ageMin)
+        if(humanData.Age < ageMin)
         {
             return false;
         }
-        if (villagerData.Age > ageMax)
+        if (humanData.Age > ageMax)
         {
             return false;
         }

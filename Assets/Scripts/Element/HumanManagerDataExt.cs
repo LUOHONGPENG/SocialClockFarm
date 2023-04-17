@@ -2,45 +2,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class VillagerManager
+public partial class HumanManager
 {
-    #region VillagerData
-    public VillagerData villagerData;
+    #region HumanData
+    public HumanData humanData;
 
     private float vCurrentEdu
     {
         get
         {
-            if (villagerData != null)
+            if (humanData != null)
             {
-                return villagerData.vEdu;
+                return humanData.vEdu;
             }
             return 0;
         }
         set
         {
-            if (villagerData != null)
+            if (humanData != null)
             {
-                villagerData.vEdu = value;
+                humanData.vEdu = value;
             }
         }
     }
 
-    private float vCurrentJob
+    private float vCurrentFortune
     {
         get
         {
-            if (villagerData != null)
+            if (humanData != null)
             {
-                return villagerData.vJob;
+                return humanData.vFortune;
             }
             return 0;
         }
         set
         {
-            if (villagerData != null)
+            if (humanData != null)
             {
-                villagerData.vJob = value;
+                humanData.vFortune = value;
             }
         }
     }
@@ -53,7 +53,14 @@ public partial class VillagerManager
     {
         get
         {
-            return false;
+            if(currentSlot!=null && currentSlot.slotType == SlotType.School)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -65,7 +72,7 @@ public partial class VillagerManager
         }
     }
 
-    private void TimeGoVillager()
+    private void TimeGoData()
     {
         float timeDelta = Time.deltaTime;
         timerGrow -= timeDelta;
@@ -79,7 +86,8 @@ public partial class VillagerManager
 
     private void AgeGrow()
     {
-        villagerData.AgeGrow();
+        humanData.AgeGrow();
+        RefreshUI();
     }
 
     private void DataChange(float timeDelta)
@@ -87,11 +95,13 @@ public partial class VillagerManager
         if (isInSchool)
         {
             vCurrentEdu += GameGlobal.rateYearEdu_School * timeDelta;
+            RefreshUI();
         }
 
         if (isInJob)
         {
-            vCurrentJob += GameGlobal.rateYearEdu_School * timeDelta;
+            vCurrentFortune += GameGlobal.rateYearEdu_School * timeDelta;
+            RefreshUI();
         }
     }
 }

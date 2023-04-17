@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [Header("Villager")]
-    public Transform tfVillager;
+    [Header("Human")]
+    public Transform tfHuman;
     [HideInInspector]
-    public List<VillagerManager> listVillager = new List<VillagerManager>();
-    public List<VillagerData> listVillagerData = new List<VillagerData>();
-    public GameObject pfVillager;
+    public List<HumanManager> listHuman = new List<HumanManager>();
+    public List<HumanData> listHumanData = new List<HumanData>();
+    public GameObject pfHuman;
 
     [Header("Career")]
     public CareerManager careerSchool;
@@ -18,47 +18,47 @@ public class LevelManager : MonoBehaviour
 
     public void Init()
     {
-        listVillagerData.Clear();
-        listVillager.Clear();
+        listHumanData.Clear();
+        listHuman.Clear();
 
-        InitVillager();
+        InitHuman();
         InitCareer();
 
         isInit = true;
     }
 
-    #region VillagerControl
-    public void InitVillager()
+    #region HumanControl
+    public void InitHuman()
     {
         for(int i = 0; i < 3; i++)
         {
-            CreateNewVillager();
+            CreateNewHuman();
         }
     }
 
-    public void CreateNewVillager()
+    public void CreateNewHuman()
     {
-        VillagerData villagerData = new VillagerData(listVillagerData.Count, 50f);
-        listVillagerData.Add(villagerData);
-        CreateNewVillagerPrefab(villagerData);
+        HumanData humanData = new HumanData(listHumanData.Count, 50f);
+        listHumanData.Add(humanData);
+        CreateNewHumanPrefab(humanData);
     }
 
-    public void CreateNewVillagerPrefab(VillagerData villagerData)
+    public void CreateNewHumanPrefab(HumanData humanData)
     {
-        GameObject objVillager = GameObject.Instantiate(pfVillager, tfVillager);
-        VillagerManager itemVillager = objVillager.GetComponent<VillagerManager>();
-        itemVillager.Init(villagerData);
-        listVillager.Add(itemVillager);
-        RefreshVillagerPos();
+        GameObject objHuman = GameObject.Instantiate(pfHuman, tfHuman);
+        HumanManager itemHuman = objHuman.GetComponent<HumanManager>();
+        itemHuman.Init(humanData);
+        listHuman.Add(itemHuman);
+        RefreshHumanPos();
     }
 
-    public void RefreshVillagerPos()
+    public void RefreshHumanPos()
     {
-        int totalNum = listVillager.Count;
-        for(int i = 0; i < listVillager.Count; i++)
+        int totalNum = listHuman.Count;
+        for(int i = 0; i < listHuman.Count; i++)
         {
             Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
-            listVillager[i].SetLocalPos(targetPos);
+            listHuman[i].SetLocalPos(targetPos);
         }
     }
     #endregion
@@ -82,9 +82,9 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        for(int i = 0; i < listVillager.Count; i++)
+        for(int i = 0; i < listHuman.Count; i++)
         {
-            listVillager[i].TimeGo();
+            listHuman[i].TimeGo();
         }
     }
 

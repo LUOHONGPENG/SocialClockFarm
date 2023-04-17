@@ -36,7 +36,7 @@ public class CareerManager : MonoBehaviour
     {
         GameObject objSlot = GameObject.Instantiate(pfSlot, tfSlot);
         SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
-        //itemSlot.
+        itemSlot.Init(SlotType.School, GameGlobal.ageMin_School, GameGlobal.ageMax_School);
         listSlot.Add(itemSlot);
     }
 

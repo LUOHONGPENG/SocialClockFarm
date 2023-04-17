@@ -9,41 +9,20 @@ public partial class VillagerManager : MonoBehaviour
     public CommonDragItem dragManager;
 
     private bool isInit = false;
+    private SlotManager currentSlot;
 
+    #region Basic
     public void Init(VillagerData villagerData)
     {
         if (dragManager != null)
         {
-            dragManager.InitDrag();
+            dragManager.InitDrag(srVillager);
             dragManager.dragDealAction = delegate ()
             {
-                Vector3 screenPos = PublicTool.GetMousePosition2D();
-                RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
-
-                if (hit.collider != null)
-                {
-                    if (hit.collider.tag == "Slot")
-                    {
-                        GameObject objSlot = hit.collider.gameObject;
-                        SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
-                        if (itemSlot != null)
-                        {
-
-                            return;
-                        }
-                    }
-                }
-
-
+                DragDeal();
             };
         }
-
         this.villagerData = villagerData;
-    }
-
-    public void SetLocalPos(Vector2 pos)
-    {
-        tfPos.localPosition = pos;
     }
 
     public void TimeGo()
@@ -52,20 +31,62 @@ public partial class VillagerManager : MonoBehaviour
         TimeGoVillager();
     }
 
+    public void SetLocalPos(Vector2 pos)
+    {
+        tfPos.localPosition = pos;
+    }
+    #endregion
+
+    #region DragControl
+
+    private void DragDeal()
+    {
+        //CheckWhetherSlot
+        Vector3 screenPos = PublicTool.GetMousePosition2D();
+        RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.zero);
+        foreach (var hit in hits)
+        {
+            if (hit.collider != null)
+            {
+                if (hit.collider.tag == "Slot")
+                {
+                    GameObject objSlot = hit.collider.gameObject;
+                    SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
+                    if (itemSlot != null && currentSlot != itemSlot)
+                    {
+                        if (itemSlot.CheckVillagerValid(villagerData))
+                        {
+                            //Bind the current Slot
+                            currentSlot = itemSlot;
+                            itemSlot.isFilled = true;
+                        }
+                        else
+                        {
+                            //Back to the current Slot
+                            dragManager.MoveBackStartPoint();
+                        }
+                        return;
+                    }
+                }
+            }
+        }
+
+        //Back to the Hole
+        if (currentSlot != null)
+        {
+            currentSlot.isFilled = false;
+            currentSlot = null;
+        }
+        dragManager.MoveBackInitialPoint();
+    }
 
     private void TimeGoCheckDrag()
     {
         if (dragManager != null)
         {
             dragManager.TimeGoDrag();
-            if (dragManager.isDragging)
-            {
-                srVillager.maskInteraction = SpriteMaskInteraction.None;
-            }
-            else
-            {
-                srVillager.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
-            }
+
         }
     }
+    #endregion
 }

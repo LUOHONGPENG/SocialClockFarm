@@ -5,23 +5,23 @@ using UnityEngine;
 public partial class VillagerManager
 {
     #region VillagerData
-    public VillagerData thisData;
+    public VillagerData villagerData;
 
     private float vCurrentEdu
     {
         get
         {
-            if (thisData != null)
+            if (villagerData != null)
             {
-                return thisData.vEdu;
+                return villagerData.vEdu;
             }
             return 0;
         }
         set
         {
-            if (thisData != null)
+            if (villagerData != null)
             {
-                thisData.vEdu = value;
+                villagerData.vEdu = value;
             }
         }
     }
@@ -30,17 +30,17 @@ public partial class VillagerManager
     {
         get
         {
-            if (thisData != null)
+            if (villagerData != null)
             {
-                return thisData.vJob;
+                return villagerData.vJob;
             }
             return 0;
         }
         set
         {
-            if (thisData != null)
+            if (villagerData != null)
             {
-                thisData.vJob = value;
+                villagerData.vJob = value;
             }
         }
     }
@@ -79,7 +79,7 @@ public partial class VillagerManager
 
     private void AgeGrow()
     {
-        thisData.AgeGrow();
+        villagerData.AgeGrow();
     }
 
     private void DataChange(float timeDelta)

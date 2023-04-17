@@ -41,3 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Static
+    uniqueID: 3092570823
+    locked: 0
+  - name: Villager
+    uniqueID: 2783112033
+    locked: 0

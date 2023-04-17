@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [Header("Villager")]
     public Transform tfVillager;
     [HideInInspector]
     public List<VillagerManager> listVillager = new List<VillagerManager>();
     public List<VillagerData> listVillagerData = new List<VillagerData>();
-
     public GameObject pfVillager;
+
+    [Header("Career")]
+    public CareerManager careerSchool;
 
     private bool isInit = false;
 
@@ -19,6 +22,7 @@ public class LevelManager : MonoBehaviour
         listVillager.Clear();
 
         InitVillager();
+        InitCareer();
 
         isInit = true;
     }
@@ -50,14 +54,24 @@ public class LevelManager : MonoBehaviour
 
     public void RefreshVillagerPos()
     {
-        int totalVillagerNum = listVillager.Count;
+        int totalNum = listVillager.Count;
         for(int i = 0; i < listVillager.Count; i++)
         {
-            Vector2 targetPos = PublicTool.CalculatePosDelta(totalVillagerNum, i, 2f);
+            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
             listVillager[i].SetLocalPos(targetPos);
         }
     }
     #endregion
+
+    #region CareerControl
+
+    public void InitCareer()
+    {
+        careerSchool.Init(CareerType.School);
+    }
+
+    #endregion
+
 
     #region TimeControl
 

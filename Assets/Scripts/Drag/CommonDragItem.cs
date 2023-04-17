@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CommonDragItem : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class CommonDragItem : MonoBehaviour
     public bool isDragging = false;
     protected bool canDrag = false;
     public bool isInitDrag = false;
+
+    public UnityAction dragDealAction;
 
     //Initialize the Drag Component
     public void InitDrag()
@@ -48,9 +51,10 @@ public class CommonDragItem : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && canDrag)
         {
-            Vector3 mousePosNew = Input.mousePosition;
-            mousePosNew.z = 10;
-            Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePosNew);
+            /*            Vector3 mousePosNew = Input.mousePosition;
+                        mousePosNew.z = 10;
+                        Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePosNew);*/
+            Vector3 screenPos = PublicTool.GetMousePosition2D();
             RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
 
             if (hit.collider != null)
@@ -71,13 +75,10 @@ public class CommonDragItem : MonoBehaviour
             if (isDragging)
             {
                 isDragging = false;
-                DealDragDown();
+                dragDealAction.Invoke();
             }
         }
     }
 
-    public void DealDragDown()
-    {
 
-    }
 }

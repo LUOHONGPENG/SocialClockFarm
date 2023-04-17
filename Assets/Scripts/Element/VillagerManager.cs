@@ -15,6 +15,27 @@ public partial class VillagerManager : MonoBehaviour
         if (dragManager != null)
         {
             dragManager.InitDrag();
+            dragManager.dragDealAction = delegate ()
+            {
+                Vector3 screenPos = PublicTool.GetMousePosition2D();
+                RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.tag == "Slot")
+                    {
+                        GameObject objSlot = hit.collider.gameObject;
+                        SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
+                        if (itemSlot != null)
+                        {
+
+                            return;
+                        }
+                    }
+                }
+
+
+            };
         }
 
         this.villagerData = villagerData;

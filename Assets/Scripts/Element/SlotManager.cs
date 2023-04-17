@@ -11,7 +11,10 @@ public enum SlotType
 public class SlotManager : MonoBehaviour
 {
     public SlotType slotType;
+    public Transform tfPos;
 
-    
-
+    public void SetLocalPos(Vector2 pos)
+    {
+        tfPos.localPosition = pos;
+    }
 }

@@ -29,9 +29,8 @@ public class MarriageManager : MonoBehaviour
 
         PublicTool.ClearChildItem(tfSlot);
 
-        ageMin = GameGlobal.ageMin_Marriage;
-        ageMax = GameGlobal.ageMax_Marriage;
-
+        ageMin = GameGlobal.ageMin_Marriage + Random.Range(-2, 2);
+        ageMax = GameGlobal.ageMax_Marriage + Random.Range(-5,12);
         limitEdu = Random.Range(0, 50);
         limitFortune = Random.Range(0, 30);
 

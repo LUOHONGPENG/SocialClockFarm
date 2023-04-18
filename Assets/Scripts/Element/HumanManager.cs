@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public partial class HumanManager : MonoBehaviour
 {
     [Header("Basic")]
-    public Transform tfPos;
     public SpriteRenderer srHuman;
     public CommonDragItem dragManager;
 
@@ -42,10 +41,6 @@ public partial class HumanManager : MonoBehaviour
         TimeGoData();
     }
 
-    public void SetLocalPos(Vector2 pos)
-    {
-        tfPos.localPosition = pos;
-    }
     #endregion
 
     #region DragControl

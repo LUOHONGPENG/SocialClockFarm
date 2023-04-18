@@ -13,6 +13,15 @@ public class LevelManager : MonoBehaviour
 
     [Header("Career")]
     public CareerManager careerSchool;
+    public CareerManager careerJob0;
+    public CareerManager careerJob1;
+    public CareerManager careerJob2;
+
+    [Header("Marriage")]
+    public List<MarriageManager> listMarriage = new List<MarriageManager>();
+    public Transform tfMarriage;
+    public GameObject pfMarriage;
+
 
     private bool isInit = false;
 
@@ -23,6 +32,7 @@ public class LevelManager : MonoBehaviour
 
         InitHuman();
         InitCareer();
+        InitMarriage();
 
         isInit = true;
     }
@@ -52,25 +62,69 @@ public class LevelManager : MonoBehaviour
         RefreshHumanPos();
     }
 
+    public void DeleteHuman()
+    {
+
+    }
+
     public void RefreshHumanPos()
     {
         int totalNum = listHuman.Count;
         for(int i = 0; i < listHuman.Count; i++)
         {
             Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
-            listHuman[i].SetLocalPos(targetPos);
+            listHuman[i].transform.localPosition = targetPos;
         }
     }
     #endregion
 
     #region CareerControl
-
     public void InitCareer()
     {
-        careerSchool.Init(CareerType.School);
+        careerSchool.Init(SlotType.School);
+        careerJob0.Init(SlotType.Job0);
+        careerJob1.Init(SlotType.Job1);
+        careerJob2.Init(SlotType.Job2);
+    }
+    #endregion
+
+    #region MarriageControl
+
+    public void InitMarriage()
+    {
+        listMarriage.Clear();
+        for(int i = 0; i < 2; i++)
+        {
+            CreateMarriage();
+        }
     }
 
-    #endregion
+    public void CreateMarriage()
+    {
+        GameObject objMarriage = GameObject.Instantiate(pfMarriage, tfMarriage);
+        MarriageManager itemMarriage = objMarriage.GetComponent<MarriageManager>();
+        itemMarriage.Init();
+        listMarriage.Add(itemMarriage);
+        RefreshMarriagePos();
+    }
+
+    public void RefreshMarriagePos()
+    {
+        int totalNum = listMarriage.Count;
+        for (int i = 0; i < listMarriage.Count; i++)
+        {
+            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
+            listMarriage[i].transform.localPosition = targetPos;
+        }
+    }
+    public void ReachMarriage(MarriageManager marriage)
+    {
+        listMarriage.Remove(marriage);
+        CreateMarriage();
+    }
+
+
+    #endregion 
 
 
     #region TimeControl

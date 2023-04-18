@@ -2,26 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SlotType
-{
-    School,
-    Job,
-    Marriage
-}
+
 
 public class SlotManager : MonoBehaviour
 {
     public SlotType slotType;
     public Transform tfPos;
     public bool isFilled = false;
+
     private int ageMin;
     private int ageMax;
+    private float limitEdu;
+    private float limitFortune;
 
-    public void Init(SlotType slotType,int ageMin,int ageMax)
+
+    public void Init(SlotType slotType,int ageMin,int ageMax,float limitEdu=0, float limitFortune = 0)
     {
         this.slotType = slotType;
         this.ageMin = ageMin;
         this.ageMax = ageMax;
+        this.limitEdu = limitEdu;
+        this.limitFortune = limitFortune;
+
         this.isFilled = false;
     }
 
@@ -36,6 +38,14 @@ public class SlotManager : MonoBehaviour
             return false;
         }
         if (humanData.Age > ageMax)
+        {
+            return false;
+        }
+        if(humanData.vEdu < limitEdu)
+        {
+            return false;
+        }
+        if (humanData.vFortune < limitFortune)
         {
             return false;
         }

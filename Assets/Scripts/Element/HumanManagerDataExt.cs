@@ -68,7 +68,21 @@ public partial class HumanManager
     {
         get
         {
-            return false;
+            if (currentSlot != null)
+            {
+                switch (currentSlot.slotType)
+                {
+                    case SlotType.Job0:
+                    case SlotType.Job1:
+                    case SlotType.Job2:
+                        return true;
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -94,13 +108,26 @@ public partial class HumanManager
     {
         if (isInSchool)
         {
-            vCurrentEdu += GameGlobal.rateYearEdu_School * timeDelta;
+            vCurrentEdu += (GameGlobal.rateYearEdu_School/GameGlobal.timeOneYear) * timeDelta;
             RefreshUI();
         }
 
         if (isInJob)
         {
-            vCurrentFortune += GameGlobal.rateYearEdu_School * timeDelta;
+            float rateFortune = 0;
+            switch (currentSlot.slotType)
+            {
+                case SlotType.Job0:
+                    rateFortune = GameGlobal.rateYearFortune_Job[0];
+                    break;
+                case SlotType.Job1:
+                    rateFortune = GameGlobal.rateYearFortune_Job[1];
+                    break;
+                case SlotType.Job2:
+                    rateFortune = GameGlobal.rateYearFortune_Job[2];
+                    break;
+            }
+            vCurrentFortune += (rateFortune / GameGlobal.timeOneYear) * timeDelta;
             RefreshUI();
         }
     }

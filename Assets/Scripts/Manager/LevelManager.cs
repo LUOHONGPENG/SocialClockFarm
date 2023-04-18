@@ -21,6 +21,7 @@ public class LevelManager : MonoBehaviour
     public List<MarriageManager> listMarriage = new List<MarriageManager>();
     public Transform tfMarriage;
     public GameObject pfMarriage;
+    private int countID_marriage;
 
 
     private bool isInit = false;
@@ -74,6 +75,7 @@ public class LevelManager : MonoBehaviour
         {
             Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
             listHuman[i].transform.localPosition = targetPos;
+            listHuman[i].SetHumanSlot();
         }
     }
     #endregion
@@ -103,7 +105,7 @@ public class LevelManager : MonoBehaviour
     {
         GameObject objMarriage = GameObject.Instantiate(pfMarriage, tfMarriage);
         MarriageManager itemMarriage = objMarriage.GetComponent<MarriageManager>();
-        itemMarriage.Init();
+        itemMarriage.Init(countID_marriage);
         listMarriage.Add(itemMarriage);
         RefreshMarriagePos();
     }
@@ -117,10 +119,25 @@ public class LevelManager : MonoBehaviour
             listMarriage[i].transform.localPosition = targetPos;
         }
     }
-    public void ReachMarriage(MarriageManager marriage)
+    public void ReachMarriage(int ID)
     {
-        listMarriage.Remove(marriage);
-        CreateMarriage();
+        MarriageManager targetMarriage = null;
+        foreach(var marriage in listMarriage)
+        {
+            if (marriage.marriageID == ID)
+            {
+                targetMarriage = marriage;
+            }
+        }
+
+        if (targetMarriage != null)
+        {
+            Destroy(targetMarriage.gameObject);
+            listMarriage.Remove(targetMarriage);
+            CreateMarriage();
+            CreateNewHuman();
+        }
+
     }
 
 

@@ -17,6 +17,6 @@ public static class GameGlobal
     public static int ageMax_Job = 60;
 
     public static int ageMin_Marriage = 22;
-    public static int ageMax_Marriage = 35;
+    public static int ageMax_Marriage = 40;
 
 }

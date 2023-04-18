@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7faa8121ed97f714b8ec4348cf43ca0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tfPos: {fileID: 1941968785335225008}
   srHuman: {fileID: 6307322709823176162}
+  tfHuman: {fileID: 4471680135106838848}
   dragManager: {fileID: 7769683891673865550}
   txAge: {fileID: 5771359494505045697}
   imgFillEdu: {fileID: 5611134576888828770}

@@ -7,6 +7,7 @@ public partial class HumanManager : MonoBehaviour
 {
     [Header("Basic")]
     public SpriteRenderer srHuman;
+    public Transform tfHuman;
     public CommonDragItem dragManager;
 
     [Header("UI")]
@@ -47,9 +48,13 @@ public partial class HumanManager : MonoBehaviour
 
     private void DragDeal()
     {
+        //Condition
+        SlotManager validSlot = null;
+        bool isHitSlot = false;
         //CheckWhetherSlot
         Vector3 screenPos = PublicTool.GetMousePosition2D();
         RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.zero);
+
         foreach (var hit in hits)
         {
             if (hit.collider != null)
@@ -60,31 +65,64 @@ public partial class HumanManager : MonoBehaviour
                     SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
                     if (itemSlot != null && currentSlot != itemSlot)
                     {
+                        isHitSlot = true;
                         if (itemSlot.CheckHumanValid(humanData))
                         {
-                            //Bind the current Slot
-                            currentSlot = itemSlot;
-                            itemSlot.isFilled = true;
+                            validSlot = itemSlot;
+                            Debug.Log("ValidSlot");
+                            break;
                         }
-                        else
-                        {
-                            //Back to the current Slot
-                            dragManager.MoveBackStartPoint();
-                        }
-                        return;
                     }
                 }
             }
         }
 
-        //Back to the Hole
+        //DealSlot
+
+        if(validSlot != null)
+        {
+            switch (validSlot.slotType)
+            {
+                case SlotType.Marriage:
+                    GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
+                    dragManager.MoveBackInitialPoint();
+                    break;
+                default:
+                    //Bind the current Slot
+                    currentSlot = validSlot;
+                    validSlot.isFilled = true;
+                    SetHumanSlot();
+                    break;
+            }
+        }
+        else
+        {
+            if (isHitSlot && currentSlot !=null)
+            {
+                //Back to the current Slot
+                dragManager.MoveBackStartPoint();
+            }
+            else
+            {
+                //Back to the Hole
+                if (currentSlot != null)
+                {
+                    currentSlot.isFilled = false;
+                    currentSlot = null;
+                }
+                dragManager.MoveBackInitialPoint();
+            }
+        }
+    }
+
+    public void SetHumanSlot()
+    {
         if (currentSlot != null)
         {
-            currentSlot.isFilled = false;
-            currentSlot = null;
+            tfHuman.position = currentSlot.transform.position;
         }
-        dragManager.MoveBackInitialPoint();
     }
+
 
     private void TimeGoCheckDrag()
     {

@@ -7,6 +7,7 @@ using UnityEngine;
 public class SlotManager : MonoBehaviour
 {
     public SlotType slotType;
+    public int slotID;
     public Transform tfPos;
     public bool isFilled = false;
 
@@ -25,6 +26,11 @@ public class SlotManager : MonoBehaviour
         this.limitFortune = limitFortune;
 
         this.isFilled = false;
+    }
+
+    public void SetID(int ID)
+    {
+        this.slotID = ID;
     }
 
     public bool CheckHumanValid(HumanData humanData)

@@ -14,6 +14,8 @@ public class MarriageManager : MonoBehaviour
     public Text txFortune;
 
     //Data
+    [HideInInspector]
+    public int marriageID;
     private int ageMin;
     private int ageMax;
     private float limitEdu;
@@ -21,8 +23,10 @@ public class MarriageManager : MonoBehaviour
 
     private bool isInit = false;
 
-    public void Init()
+    public void Init(int ID)
     {
+        this.marriageID = ID;
+
         PublicTool.ClearChildItem(tfSlot);
 
         ageMin = GameGlobal.ageMin_Marriage;
@@ -49,6 +53,7 @@ public class MarriageManager : MonoBehaviour
         GameObject objSlot = GameObject.Instantiate(pfSlot, tfSlot);
         SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
         itemSlot.Init(SlotType.Marriage, ageMin, ageMax, limitEdu,limitFortune);
+        itemSlot.SetID(marriageID);
     }
 
 

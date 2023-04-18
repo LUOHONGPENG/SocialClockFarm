@@ -87,6 +87,9 @@ public partial class HumanManager : MonoBehaviour
                     GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
                     dragManager.MoveBackInitialPoint();
                     break;
+                case SlotType.Retire:
+                    GameManager.Instance.levelManager.Retire(this);
+                    break;
                 default:
                     //Bind the current Slot
                     currentSlot = validSlot;

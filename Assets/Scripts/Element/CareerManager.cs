@@ -10,7 +10,7 @@ public enum SlotType
     Job1,
     Job2,
     Marriage,
-    Retirement
+    Retire
 }
 
 public class CareerManager : MonoBehaviour

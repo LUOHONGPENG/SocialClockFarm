@@ -23,6 +23,9 @@ public class LevelManager : MonoBehaviour
     public GameObject pfMarriage;
     private int countID_marriage;
 
+    [Header("Retirement")]
+    public RetireManager retireManager;
+
 
     private bool isInit = false;
 
@@ -34,6 +37,7 @@ public class LevelManager : MonoBehaviour
         InitHuman();
         InitCareer();
         InitMarriage();
+        retireManager.Init();
 
         isInit = true;
     }
@@ -141,14 +145,22 @@ public class LevelManager : MonoBehaviour
     }
 
 
-    #endregion 
+    #endregion
 
+    #region RetireControl
+
+    public void Retire(HumanManager human)
+    {
+
+    }
+
+    #endregion
 
     #region TimeControl
 
     public void TimeGo()
     {
-        if (!isInit)
+        if (!isInit||GameManager.Instance.isTimeStop)
         {
             return;
         }

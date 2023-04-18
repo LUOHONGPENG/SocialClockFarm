@@ -5,17 +5,16 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public LevelManager levelManager;
+    public UIManager uiManager;
 
     public bool isTimeStop = false;
 
-    public void Start()
-    {
-        Init();
-    }
 
-    public void Init()
+    public override void Init()
     {
         levelManager.Init();
+        uiManager.Init();
+
         isTimeStop = false;
     }
 

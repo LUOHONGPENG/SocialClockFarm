@@ -48,6 +48,9 @@ TagManager:
   - name: Villager
     uniqueID: 2783112033
     locked: 0
-  - name: UI
+  - name: ObjectUI
     uniqueID: 4063177827
+    locked: 0
+  - name: PageUI
+    uniqueID: 1154015969
     locked: 0

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public RetireUIManager retireManager;
+
+    public void Init()
     {
-        
+        retireManager.Init();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ShowRetire(HumanManager human)
     {
-        
+        retireManager.ShowPopup(human);
+        GameManager.Instance.isTimeStop = true;
     }
 }

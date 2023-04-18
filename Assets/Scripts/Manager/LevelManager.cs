@@ -67,9 +67,14 @@ public class LevelManager : MonoBehaviour
         RefreshHumanPos();
     }
 
-    public void DeleteHuman()
+    public void DeleteHuman(HumanManager human)
     {
-
+        if (human != null)
+        {
+            Destroy(human.gameObject);
+            listHuman.Remove(human);
+            RefreshHumanPos();
+        }
     }
 
     public void RefreshHumanPos()
@@ -151,7 +156,7 @@ public class LevelManager : MonoBehaviour
 
     public void Retire(HumanManager human)
     {
-
+        GameManager.Instance.uiManager.ShowRetire(human);
     }
 
     #endregion

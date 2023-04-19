@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour
     public Transform tfHuman;
     [HideInInspector]
     public List<HumanManager> listHuman = new List<HumanManager>();
-    public List<HumanData> listHumanData = new List<HumanData>();
+    public List<HumanModel> listHumanModel = new List<HumanModel>();
     public GameObject pfHuman;
 
     [Header("Career")]
@@ -31,7 +31,7 @@ public class LevelManager : MonoBehaviour
 
     public void Init()
     {
-        listHumanData.Clear();
+        listHumanModel.Clear();
         listHuman.Clear();
 
         InitHuman();
@@ -53,16 +53,16 @@ public class LevelManager : MonoBehaviour
 
     public void CreateNewHuman()
     {
-        HumanData humanData = new HumanData(listHumanData.Count, 50f);
-        listHumanData.Add(humanData);
-        CreateNewHumanPrefab(humanData);
+        HumanModel humanModel = new HumanModel(listHumanModel.Count, 50f);
+        listHumanModel.Add(humanModel);
+        CreateNewHumanPrefab(humanModel);
     }
 
-    public void CreateNewHumanPrefab(HumanData humanData)
+    public void CreateNewHumanPrefab(HumanModel humanModel)
     {
         GameObject objHuman = GameObject.Instantiate(pfHuman, tfHuman);
         HumanManager itemHuman = objHuman.GetComponent<HumanManager>();
-        itemHuman.Init(humanData);
+        itemHuman.Init(humanModel);
         listHuman.Add(itemHuman);
         RefreshHumanPos();
     }

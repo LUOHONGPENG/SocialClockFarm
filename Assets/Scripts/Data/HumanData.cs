@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HumanData
+public class HumanModel
 {
     public int HumanID = -1;
     public int Age = 0;
@@ -16,7 +16,7 @@ public class HumanData
     public int vFirstWorkAge = -1;
     public float vDelayGraduationYear = 0;
 
-    public HumanData(int ID,float Status)
+    public HumanModel(int ID,float Status)
     {
         this.HumanID = ID;
         this.Age = 0;

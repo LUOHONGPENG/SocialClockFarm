@@ -4,16 +4,16 @@ using UnityEngine;
 
 public partial class HumanManager
 {
-    #region HumanData
-    public HumanData humanData;
+    #region HumanModel
+    public HumanModel humanModel;
 
     private float vCurrentEdu
     {
         get
         {
-            if (humanData != null)
+            if (humanModel != null)
             {
-                return humanData.vEdu;
+                return humanModel.vEdu;
             }
             return 0;
         }
@@ -23,9 +23,9 @@ public partial class HumanManager
     {
         get
         {
-            if (humanData != null)
+            if (humanModel != null)
             {
-                return humanData.vFortune;
+                return humanModel.vFortune;
             }
             return 0;
         }
@@ -86,7 +86,7 @@ public partial class HumanManager
 
     private void AgeGrow()
     {
-        humanData.AgeGrow();
+        humanModel.AgeGrow();
         RefreshUI();
     }
 
@@ -95,7 +95,7 @@ public partial class HumanManager
         if (isInSchool)
         {
             float rateSchool =  (GameGlobal.rateYearEdu_School/GameGlobal.timeOneYear);
-            humanData.TimeGoRecordSchool(timeDelta, rateSchool);
+            humanModel.TimeGoRecordSchool(timeDelta, rateSchool);
             RefreshUI();
         }
 
@@ -115,7 +115,7 @@ public partial class HumanManager
                     break;
             }
             float rateFortuneGrow = (rateFortune / GameGlobal.timeOneYear);
-            humanData.TimeGoRecordJob(timeDelta, rateFortuneGrow);
+            humanModel.TimeGoRecordJob(timeDelta, rateFortuneGrow);
             RefreshUI();
         }
     }

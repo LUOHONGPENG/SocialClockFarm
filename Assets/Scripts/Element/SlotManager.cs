@@ -33,29 +33,29 @@ public class SlotManager : MonoBehaviour
         this.slotID = ID;
     }
 
-    public bool CheckHumanValid(HumanData humanData)
+    public bool CheckHumanValid(HumanModel humanModel)
     {
         if (isFilled)
         {
             return false;
         }
-        if(slotType == SlotType.Marriage && humanData.isMarried)
+        if(slotType == SlotType.Marriage && humanModel.isMarried)
         {
             return false;
         }
-        if(humanData.Age < ageMin)
+        if(humanModel.Age < ageMin)
         {
             return false;
         }
-        if (humanData.Age > ageMax)
+        if (humanModel.Age > ageMax)
         {
             return false;
         }
-        if(humanData.vEdu < limitEdu)
+        if(humanModel.vEdu < limitEdu)
         {
             return false;
         }
-        if (humanData.vFortune < limitFortune)
+        if (humanModel.vFortune < limitFortune)
         {
             return false;
         }

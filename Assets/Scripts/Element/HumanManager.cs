@@ -24,7 +24,7 @@ public partial class HumanManager : MonoBehaviour
 
 
     #region Basic
-    public void Init(HumanData humanData)
+    public void Init(HumanModel humanModel)
     {
         if (dragManager != null)
         {
@@ -34,7 +34,7 @@ public partial class HumanManager : MonoBehaviour
                 DragDeal();
             };
         }
-        this.humanData = humanData;
+        this.humanModel = humanModel;
         RefreshUI();
     }
 
@@ -47,7 +47,7 @@ public partial class HumanManager : MonoBehaviour
 
     public void TimeGoCheckRed()
     {
-        if(isInSchool && humanData.Age > GameGlobal.ageMax_School)
+        if(isInSchool && humanModel.Age > GameGlobal.ageMax_School)
         {
             isDelaySchoolRed = true;
         }
@@ -89,7 +89,7 @@ public partial class HumanManager : MonoBehaviour
                     if (itemSlot != null && currentSlot != itemSlot)
                     {
                         isHitSlot = true;
-                        if (itemSlot.CheckHumanValid(humanData))
+                        if (itemSlot.CheckHumanValid(humanModel))
                         {
                             validSlot = itemSlot;
                             Debug.Log("ValidSlot");
@@ -112,7 +112,7 @@ public partial class HumanManager : MonoBehaviour
             switch (validSlot.slotType)
             {
                 case SlotType.Marriage:
-                    this.humanData.RecordMarried();
+                    this.humanModel.RecordMarried();
                     GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
                     dragManager.MoveBackInitialPoint();
                     break;
@@ -169,7 +169,7 @@ public partial class HumanManager : MonoBehaviour
 
     public void RefreshUI()
     {
-        txAge.text = humanData.Age.ToString();
+        txAge.text = humanModel.Age.ToString();
         imgFillEdu.fillAmount = vCurrentEdu / 100f;
         imgFillFortune.fillAmount = vCurrentFortune / 100f;
         codeEdu.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentEdu));

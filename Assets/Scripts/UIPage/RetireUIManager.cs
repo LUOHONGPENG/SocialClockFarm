@@ -28,10 +28,10 @@ public class RetireUIManager : MonoBehaviour
     public void ShowPopup(HumanManager human)
     {
         this.storedHuman = human;
-        HumanData humanData = human.humanData;
+        HumanModel humanModel = human.humanModel;
 
         PublicTool.ClearChildItem(tfComment);
-        int vScore = CalculateScore(humanData);
+        int vScore = CalculateScore(humanModel);
         codeScore.text = vScore.ToString();
 
         objPopup.SetActive(true);
@@ -55,17 +55,17 @@ public class RetireUIManager : MonoBehaviour
         itemComment.Init(strComment, vScore);
     }
 
-    public int CalculateScore(HumanData humanData)
+    public int CalculateScore(HumanModel humanModel)
     {
         string strComment = "";
         int totalScore = 0;
         int tempScore = 0;
         //Education
-        if (humanData.vEdu > 60)
+        if (humanModel.vEdu > 60)
         {
             strComment = "High Education. So clean!";
         }
-        else if (humanData.vEdu >= 20)
+        else if (humanModel.vEdu >= 20)
         {
             strComment = "Normal Education. Not bad!";
         }
@@ -73,17 +73,17 @@ public class RetireUIManager : MonoBehaviour
         {
             strComment = "Poor Education. Dirty!";
         }
-        tempScore = -300 + Mathf.RoundToInt(humanData.vEdu) * 15;
+        tempScore = -300 + Mathf.RoundToInt(humanModel.vEdu) * 15;
         CreateComment(strComment, tempScore);
         totalScore += tempScore;
 
 
         //Income
-        if (humanData.vFortune > 60)
+        if (humanModel.vFortune > 60)
         {
             strComment = "High Income. Smooth taste!";
         }
-        else if (humanData.vFortune >= 30)
+        else if (humanModel.vFortune >= 30)
         {
             strComment = "Normal Income. Not bad!";
         }
@@ -91,19 +91,19 @@ public class RetireUIManager : MonoBehaviour
         {
             strComment = "Low Income. Woody taste!";
         }
-        tempScore = -600 + Mathf.RoundToInt(humanData.vFortune) * 20;
+        tempScore = -600 + Mathf.RoundToInt(humanModel.vFortune) * 20;
         CreateComment(strComment, tempScore);
         totalScore += tempScore;
 
         //Marriage
-        if (humanData.isMarried)
+        if (humanModel.isMarried)
         {
-            if (humanData.vMarryAge >= 40)
+            if (humanModel.vMarryAge >= 40)
             {
                 strComment = "Too Late to Marry!";
                 tempScore = -200;
             }
-            else if (humanData.vMarryAge >= 30)
+            else if (humanModel.vMarryAge >= 30)
             {
                 strComment = "Married.";
                 tempScore = 200;
@@ -123,9 +123,9 @@ public class RetireUIManager : MonoBehaviour
         totalScore += tempScore;
 
         //Gap Year
-        if(humanData.vLastStudyAge > 0 && humanData.vFirstWorkAge - humanData.vLastStudyAge > 1)
+        if(humanModel.vLastStudyAge > 0 && humanModel.vFirstWorkAge - humanModel.vLastStudyAge > 1)
         {
-            int vGapYear = Mathf.FloorToInt(humanData.vFirstWorkAge - humanData.vLastStudyAge);
+            int vGapYear = Mathf.FloorToInt(humanModel.vFirstWorkAge - humanModel.vLastStudyAge);
             strComment = string.Format("How Dare You Gap {0} Year?!", vGapYear);
             tempScore = -200 * vGapYear;
             CreateComment(strComment, tempScore);
@@ -133,9 +133,9 @@ public class RetireUIManager : MonoBehaviour
         }
 
         //Delay Graduation
-        if (humanData.vDelayGraduationYear > 1f)
+        if (humanModel.vDelayGraduationYear > 1f)
         {
-            int vDelay = Mathf.FloorToInt(humanData.vDelayGraduationYear);
+            int vDelay = Mathf.FloorToInt(humanModel.vDelayGraduationYear);
             strComment = string.Format("Delay Graduation?!");
             tempScore = -100 * vDelay;
             CreateComment(strComment, tempScore);

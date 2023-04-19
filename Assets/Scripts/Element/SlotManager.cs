@@ -39,6 +39,10 @@ public class SlotManager : MonoBehaviour
         {
             return false;
         }
+        if(slotType == SlotType.Marriage && humanData.isMarried)
+        {
+            return false;
+        }
         if(humanData.Age < ageMin)
         {
             return false;

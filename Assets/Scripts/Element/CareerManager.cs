@@ -124,7 +124,7 @@ public class CareerManager : MonoBehaviour
         int totalNum = listSlot.Count;
         for (int i = 0; i < listSlot.Count; i++)
         {
-            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 1f);
+            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 1f,4);
             listSlot[i].SetLocalPos(targetPos);
         }
     }

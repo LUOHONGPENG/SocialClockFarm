@@ -109,6 +109,7 @@ public partial class HumanManager
         if (isInSchool)
         {
             vCurrentEdu += (GameGlobal.rateYearEdu_School/GameGlobal.timeOneYear) * timeDelta;
+            humanData.TimeGoRecordSchool(timeDelta);
             RefreshUI();
         }
 
@@ -128,6 +129,7 @@ public partial class HumanManager
                     break;
             }
             vCurrentFortune += (rateFortune / GameGlobal.timeOneYear) * timeDelta;
+            humanData.TimeGoRecordJob(timeDelta);
             RefreshUI();
         }
     }

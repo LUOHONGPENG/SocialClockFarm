@@ -82,7 +82,7 @@ public class LevelManager : MonoBehaviour
         int totalNum = listHuman.Count;
         for(int i = 0; i < listHuman.Count; i++)
         {
-            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
+            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f,8);
             listHuman[i].transform.localPosition = targetPos;
             listHuman[i].SetHumanSlot();
         }
@@ -124,7 +124,7 @@ public class LevelManager : MonoBehaviour
         int totalNum = listMarriage.Count;
         for (int i = 0; i < listMarriage.Count; i++)
         {
-            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f);
+            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f,5);
             listMarriage[i].transform.localPosition = targetPos;
         }
     }

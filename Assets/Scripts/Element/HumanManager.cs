@@ -78,12 +78,12 @@ public partial class HumanManager : MonoBehaviour
         }
 
         //DealSlot
-
         if(validSlot != null)
         {
             switch (validSlot.slotType)
             {
                 case SlotType.Marriage:
+                    this.humanData.RecordMarried();
                     GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
                     dragManager.MoveBackInitialPoint();
                     break;
@@ -92,6 +92,11 @@ public partial class HumanManager : MonoBehaviour
                     break;
                 default:
                     //Bind the current Slot
+                    if (currentSlot != null)
+                    {
+                        currentSlot.isFilled = false;
+                        currentSlot = null;
+                    }
                     currentSlot = validSlot;
                     validSlot.isFilled = true;
                     SetHumanSlot();
@@ -148,6 +153,5 @@ public partial class HumanManager : MonoBehaviour
         codeFortune.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentFortune));
 
     }
-
     #endregion 
 }

@@ -115,7 +115,7 @@ public partial class HumanManager
                     break;
             }
             float rateFortuneGrow = (rateFortune / GameGlobal.timeOneYear);
-            humanData.TimeGoRecordJob(rateFortuneGrow, rateFortune);
+            humanData.TimeGoRecordJob(timeDelta, rateFortuneGrow);
             RefreshUI();
         }
     }

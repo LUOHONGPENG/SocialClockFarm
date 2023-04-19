@@ -17,9 +17,11 @@ public partial class HumanManager : MonoBehaviour
     public Image imgFillFortune;
     public Text codeFortune;
 
-
     private bool isInit = false;
     private SlotManager currentSlot;
+
+    private bool isDelaySchoolRed = false;
+
 
     #region Basic
     public void Init(HumanData humanData)
@@ -40,8 +42,29 @@ public partial class HumanManager : MonoBehaviour
     {
         TimeGoCheckDrag();
         TimeGoData();
+        TimeGoCheckRed();
     }
 
+    public void TimeGoCheckRed()
+    {
+        if(isInSchool && humanData.Age > GameGlobal.ageMax_School)
+        {
+            isDelaySchoolRed = true;
+        }
+        else
+        {
+            isDelaySchoolRed = false;
+        }
+
+        if (isDelaySchoolRed)
+        {
+            srHuman.color = Color.red;
+        }
+        else
+        {
+            srHuman.color = Color.white;
+        }
+    }
     #endregion
 
     #region DragControl
@@ -80,6 +103,12 @@ public partial class HumanManager : MonoBehaviour
         //DealSlot
         if(validSlot != null)
         {
+            //Unbind the current Slot
+            if (currentSlot != null)
+            {
+                currentSlot.isFilled = false;
+                currentSlot = null;
+            }
             switch (validSlot.slotType)
             {
                 case SlotType.Marriage:
@@ -91,12 +120,6 @@ public partial class HumanManager : MonoBehaviour
                     GameManager.Instance.levelManager.Retire(this);
                     break;
                 default:
-                    //Bind the current Slot
-                    if (currentSlot != null)
-                    {
-                        currentSlot.isFilled = false;
-                        currentSlot = null;
-                    }
                     currentSlot = validSlot;
                     validSlot.isFilled = true;
                     SetHumanSlot();

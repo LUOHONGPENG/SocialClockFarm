@@ -30,6 +30,7 @@ public class RetireUIManager : MonoBehaviour
         this.storedHuman = human;
         HumanData humanData = human.humanData;
 
+        PublicTool.ClearChildItem(tfComment);
         int vScore = CalculateScore(humanData);
         codeScore.text = vScore.ToString();
 

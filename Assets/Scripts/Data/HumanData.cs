@@ -30,7 +30,7 @@ public class HumanData
         this.Age++;
     }
 
-    public void TimeGoRecordSchool(float timeDelta)
+    public void TimeGoRecordSchool(float timeDelta,float rateEdu)
     {
         //MarkYear
         if (vFirstStudyAge < 0)
@@ -46,14 +46,26 @@ public class HumanData
         {
             vDelayGraduationYear += timeDelta / GameGlobal.timeOneYear;
         }
+
+        vEdu += rateEdu * timeDelta;
+        if (vEdu > 100f)
+        {
+            vEdu = 100f;
+        }
     }
 
-    public void TimeGoRecordJob(float timeDelta)
+    public void TimeGoRecordJob(float timeDelta,float rateFortune)
     {
         //MarkYear
         if (vFirstStudyAge < 0)
         {
             vFirstStudyAge = Age;
+        }
+
+        vFortune += rateFortune * timeDelta;
+        if (vFortune > 100f)
+        {
+            vFortune = 100f;
         }
     }
 

@@ -17,13 +17,6 @@ public partial class HumanManager
             }
             return 0;
         }
-        set
-        {
-            if (humanData != null)
-            {
-                humanData.vEdu = value;
-            }
-        }
     }
 
     private float vCurrentFortune
@@ -35,13 +28,6 @@ public partial class HumanManager
                 return humanData.vFortune;
             }
             return 0;
-        }
-        set
-        {
-            if (humanData != null)
-            {
-                humanData.vFortune = value;
-            }
         }
     }
     #endregion
@@ -108,8 +94,8 @@ public partial class HumanManager
     {
         if (isInSchool)
         {
-            vCurrentEdu += (GameGlobal.rateYearEdu_School/GameGlobal.timeOneYear) * timeDelta;
-            humanData.TimeGoRecordSchool(timeDelta);
+            float rateSchool =  (GameGlobal.rateYearEdu_School/GameGlobal.timeOneYear);
+            humanData.TimeGoRecordSchool(timeDelta, rateSchool);
             RefreshUI();
         }
 
@@ -128,8 +114,8 @@ public partial class HumanManager
                     rateFortune = GameGlobal.rateYearFortune_Job[2];
                     break;
             }
-            vCurrentFortune += (rateFortune / GameGlobal.timeOneYear) * timeDelta;
-            humanData.TimeGoRecordJob(timeDelta);
+            float rateFortuneGrow = (rateFortune / GameGlobal.timeOneYear);
+            humanData.TimeGoRecordJob(rateFortuneGrow, rateFortune);
             RefreshUI();
         }
     }

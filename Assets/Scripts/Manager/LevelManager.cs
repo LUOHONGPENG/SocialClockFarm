@@ -114,7 +114,7 @@ public class LevelManager : MonoBehaviour
 
     public void TimeGo()
     {
-        if (!isInit||GameManager.Instance.isTimeStop)
+        if (!isInit)
         {
             return;
         }

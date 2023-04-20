@@ -60,21 +60,24 @@ public class CommonDragItem : MonoBehaviour
                         mousePosNew.z = 10;
                         Vector3 screenPos = Camera.main.ScreenToWorldPoint(mousePosNew);*/
             Vector3 screenPos = PublicTool.GetMousePosition2D();
-            RaycastHit2D hit = Physics2D.Raycast(screenPos, Vector2.zero);
+            RaycastHit2D[] hits = Physics2D.RaycastAll(screenPos, Vector2.zero);
 
             dragCurrentStartPosX = this.transform.localPosition.x;
             dragCurrentStartPosY = this.transform.localPosition.y;
 
-            if (hit.collider != null)
+            foreach(var hit in hits)
             {
-                if (hit.collider == colDrag)
+                if (hit.collider != null)
                 {
-                    Vector3 mousePos = PublicTool.GetMousePosition2D();
-                    dragStartPosX = mousePos.x - this.transform.position.x;
-                    dragStartPosY = mousePos.y - this.transform.position.y;
-                    isDragging = true;
-                    srTarget.maskInteraction = SpriteMaskInteraction.None;
-                    return;
+                    if (hit.collider == colDrag)
+                    {
+                        Vector3 mousePos = PublicTool.GetMousePosition2D();
+                        dragStartPosX = mousePos.x - this.transform.position.x;
+                        dragStartPosY = mousePos.y - this.transform.position.y;
+                        isDragging = true;
+                        srTarget.maskInteraction = SpriteMaskInteraction.None;
+                        return;
+                    }
                 }
             }
         }

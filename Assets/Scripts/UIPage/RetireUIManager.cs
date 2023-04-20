@@ -44,7 +44,7 @@ public class RetireUIManager : MonoBehaviour
             GameManager.Instance.levelManager.DeleteHuman(storedHuman);
         }
         objPopup.SetActive(false);
-        GameManager.Instance.isTimeStop = false;
+        GameManager.Instance.isUIPageOn = false;
     }
 
     #region Generate Score & Comment

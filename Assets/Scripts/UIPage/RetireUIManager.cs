@@ -17,7 +17,7 @@ public class RetireUIManager : MonoBehaviour
     public GameObject pfComment;
 
 
-    private HumanManager storedHuman;
+    private HumanBasic storedHuman;
 
     public void Init()
     {
@@ -25,7 +25,7 @@ public class RetireUIManager : MonoBehaviour
         btnClose.onClick.AddListener(HidePopup);
     }
 
-    public void ShowPopup(HumanManager human)
+    public void ShowPopup(HumanBasic human)
     {
         this.storedHuman = human;
         HumanModel humanModel = human.humanModel;
@@ -79,11 +79,11 @@ public class RetireUIManager : MonoBehaviour
 
 
         //Income
-        if (humanModel.vFortune > 60)
+        if (humanModel.vCareer > 60)
         {
             strComment = "High Income. Smooth taste!";
         }
-        else if (humanModel.vFortune >= 30)
+        else if (humanModel.vCareer >= 30)
         {
             strComment = "Normal Income. Not bad!";
         }
@@ -91,7 +91,7 @@ public class RetireUIManager : MonoBehaviour
         {
             strComment = "Low Income. Woody taste!";
         }
-        tempScore = -600 + Mathf.RoundToInt(humanModel.vFortune) * 20;
+        tempScore = -600 + Mathf.RoundToInt(humanModel.vCareer) * 20;
         CreateComment(strComment, tempScore);
         totalScore += tempScore;
 

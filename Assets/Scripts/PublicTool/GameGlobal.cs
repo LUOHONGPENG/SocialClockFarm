@@ -8,7 +8,7 @@ public static class GameGlobal
     public static float[] arrayEduLevel = {0, 50f, 80f };//Rate of Education
 
     public static float rateYearEdu_School = 4f;//rate of Education Grow
-    public static float[] rateYearFortune_Job = { 1f, 2f, 4f };//Rate of Fortune
+    public static float[] rateYearCareer_Job = { 1f, 2f, 4f };//Rate of Career
 
     public static int ageMin_School = 8;
     public static int ageMax_School = 28;

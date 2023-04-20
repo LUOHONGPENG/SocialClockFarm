@@ -84,7 +84,7 @@ public class CommonDragItem : MonoBehaviour
             if (isDragging)
             {
                 isDragging = false;
-                srTarget.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+                srTarget.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
                 dragDealAction.Invoke();
             }
         }
@@ -107,7 +107,7 @@ public class CommonDragItem : MonoBehaviour
         srTarget.maskInteraction = SpriteMaskInteraction.None;
         canDrag = false;
         yield return new WaitForSeconds(0.5f);
-        srTarget.maskInteraction = SpriteMaskInteraction.VisibleInsideMask;
+        srTarget.maskInteraction = SpriteMaskInteraction.VisibleOutsideMask;
         canDrag = true;
     }
 

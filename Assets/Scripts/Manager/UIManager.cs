@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
         retireManager.Init();
     }
 
-    public void ShowRetire(HumanManager human)
+    public void ShowRetire(HumanBasic human)
     {
         retireManager.ShowPopup(human);
         GameManager.Instance.isTimeStop = true;

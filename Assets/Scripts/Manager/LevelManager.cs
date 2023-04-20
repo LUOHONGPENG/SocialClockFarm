@@ -7,37 +7,22 @@ public class LevelManager : MonoBehaviour
     [Header("Human")]
     public Transform tfHuman;
     [HideInInspector]
-    public List<HumanManager> listHuman = new List<HumanManager>();
+    public List<HumanBasic> listHuman = new List<HumanBasic>();
     public List<HumanModel> listHumanModel = new List<HumanModel>();
     public GameObject pfHuman;
 
-    [Header("Career")]
-    public CareerManager careerSchool;
-    public CareerManager careerJob0;
-    public CareerManager careerJob1;
-    public CareerManager careerJob2;
 
-    [Header("Marriage")]
-    public List<MarriageManager> listMarriage = new List<MarriageManager>();
-    public Transform tfMarriage;
-    public GameObject pfMarriage;
-    private int countID_marriage;
-
-    [Header("Retirement")]
-    public RetireManager retireManager;
-
+    [Header("Slot")]
+    public List<SlotBasic> listSlot = new List<SlotBasic>();
+    public Transform tfSlot;
+    public GameObject pfSlot;
 
     private bool isInit = false;
 
     public void Init()
     {
-        listHumanModel.Clear();
-        listHuman.Clear();
-
         InitHuman();
-        InitCareer();
-        InitMarriage();
-        retireManager.Init();
+        InitSlot();
 
         isInit = true;
     }
@@ -45,29 +30,32 @@ public class LevelManager : MonoBehaviour
     #region HumanControl
     public void InitHuman()
     {
-        for(int i = 0; i < 3; i++)
+        listHumanModel.Clear();
+        listHuman.Clear();
+        for (int i = 0; i < 4; i++)
         {
-            CreateNewHuman();
+            CreateHuman();
         }
     }
 
-    public void CreateNewHuman()
+    public void CreateHuman()
     {
+        //Create a Model
         HumanModel humanModel = new HumanModel(listHumanModel.Count, 50f);
         listHumanModel.Add(humanModel);
-        CreateNewHumanPrefab(humanModel);
-    }
-
-    public void CreateNewHumanPrefab(HumanModel humanModel)
-    {
+        //Create a Prefab
         GameObject objHuman = GameObject.Instantiate(pfHuman, tfHuman);
-        HumanManager itemHuman = objHuman.GetComponent<HumanManager>();
+        HumanBasic itemHuman = objHuman.GetComponent<HumanBasic>();
         itemHuman.Init(humanModel);
         listHuman.Add(itemHuman);
         RefreshHumanPos();
     }
 
-    public void DeleteHuman(HumanManager human)
+    /// <summary>
+    /// Delete a Human and bring it to dead
+    /// </summary>
+    /// <param name="human"></param>
+    public void DeleteHuman(HumanBasic human)
     {
         if (human != null)
         {
@@ -89,72 +77,33 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 
-    #region CareerControl
-    public void InitCareer()
-    {
-        careerSchool.Init(SlotType.School);
-        careerJob0.Init(SlotType.Job0);
-        careerJob1.Init(SlotType.Job1);
-        careerJob2.Init(SlotType.Job2);
-    }
-    #endregion
+    #region SlotControl
 
-    #region MarriageControl
-
-    public void InitMarriage()
+    public void InitSlot()
     {
-        listMarriage.Clear();
-        for(int i = 0; i < 2; i++)
-        {
-            CreateMarriage();
-        }
-    }
-
-    public void CreateMarriage()
-    {
-        GameObject objMarriage = GameObject.Instantiate(pfMarriage, tfMarriage);
-        MarriageManager itemMarriage = objMarriage.GetComponent<MarriageManager>();
-        itemMarriage.Init(countID_marriage);
-        listMarriage.Add(itemMarriage);
-        RefreshMarriagePos();
-    }
-
-    public void RefreshMarriagePos()
-    {
-        int totalNum = listMarriage.Count;
-        for (int i = 0; i < listMarriage.Count; i++)
-        {
-            Vector2 targetPos = PublicTool.CalculatePosDelta(totalNum, i, 2f,5);
-            listMarriage[i].transform.localPosition = targetPos;
-        }
-    }
-    public void ReachMarriage(int ID)
-    {
-        MarriageManager targetMarriage = null;
-        foreach(var marriage in listMarriage)
-        {
-            if (marriage.marriageID == ID)
-            {
-                targetMarriage = marriage;
-            }
-        }
-
-        if (targetMarriage != null)
-        {
-            Destroy(targetMarriage.gameObject);
-            listMarriage.Remove(targetMarriage);
-            CreateMarriage();
-            CreateNewHuman();
-        }
+        listSlot.Clear();
+        CreateSlot(SlotType.Study, 1001, 2, new Vector2(-6f, -0.5f), 4, 60);
+        CreateSlot(SlotType.Job, 2001, 3, new Vector2(-2f, 0), 16, 60);
+        CreateSlot(SlotType.Job, 2002, 2, new Vector2(1f, 0), 23, 45, 30);
+        CreateSlot(SlotType.Job, 2003, 1, new Vector2(-2f, -2.5f), 25, 60, 50);
+        CreateSlot(SlotType.Marriage, 3001, 1, new Vector2(6f, 2f), 18, 25, 20,30);
+        CreateSlot(SlotType.Retire, 4001, 1, new Vector2(6f, -2.5f), 60, 1000);
 
     }
 
+    public void CreateSlot(SlotType slotType,int ID, int volume, Vector2 pos, int ageMin, int ageMax, int eduMin = 0, int careerMin = 0)
+    {
+        GameObject objSlot = GameObject.Instantiate(pfSlot, pos, Quaternion.Euler(Vector2.zero), tfSlot);
+        SlotBasic itemSlot = objSlot.GetComponent<SlotBasic>();
+        itemSlot.Init(slotType, ID, volume, ageMin, ageMax, eduMin, careerMin);
+        listSlot.Add(itemSlot);
+    }
 
     #endregion
 
     #region RetireControl
 
-    public void Retire(HumanManager human)
+    public void Retire(HumanBasic human)
     {
         GameManager.Instance.uiManager.ShowRetire(human);
     }

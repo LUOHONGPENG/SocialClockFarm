@@ -7,7 +7,7 @@ public class HumanModel
     public int HumanID = -1;
     public int Age = 0;
     public float vEdu = 0;//Value about Education
-    public float vFortune = 0;//Value about Job
+    public float vCareer = 0;//Value about Job
     public bool isMarried = false;//Whether this people is married
     public int vMarryAge = -1;
     //Special Value
@@ -22,7 +22,7 @@ public class HumanModel
         this.Age = 0;
         this.isMarried = false;
         this.vEdu = 0;
-        this.vFortune = 0;
+        this.vCareer = 0;
     }
 
     public void AgeGrow()
@@ -54,7 +54,7 @@ public class HumanModel
         }
     }
 
-    public void TimeGoRecordJob(float timeDelta,float rateFortune)
+    public void TimeGoRecordJob(float timeDelta,float rateCareer)
     {
         //MarkYear
         if (vFirstStudyAge < 0)
@@ -62,10 +62,10 @@ public class HumanModel
             vFirstStudyAge = Age;
         }
 
-        vFortune += rateFortune * timeDelta;
-        if (vFortune > 100f)
+        vCareer += rateCareer * timeDelta;
+        if (vCareer > 100f)
         {
-            vFortune = 100f;
+            vCareer = 100f;
         }
     }
 

@@ -3,27 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public partial class HumanManager : MonoBehaviour
+public partial class HumanBasic : MonoBehaviour
 {
     [Header("Basic")]
     public SpriteRenderer srHuman;
     public Transform tfHuman;
     public CommonDragItem dragManager;
 
-    [Header("UI")]
-    public Text txAge;
-    public Image imgFillEdu;
-    public Text codeEdu;
-    public Image imgFillFortune;
-    public Text codeFortune;
-
     private bool isInit = false;
-    private SlotManager currentSlot;
-
-    private bool isDelaySchoolRed = false;
+    private SlotBasic currentSlot;
 
 
-    #region Basic
+    #region Init
     public void Init(HumanModel humanModel)
     {
         if (dragManager != null)
@@ -37,34 +28,6 @@ public partial class HumanManager : MonoBehaviour
         this.humanModel = humanModel;
         RefreshUI();
     }
-
-    public void TimeGo()
-    {
-        TimeGoCheckDrag();
-        TimeGoData();
-        TimeGoCheckRed();
-    }
-
-    public void TimeGoCheckRed()
-    {
-        if(isInSchool && humanModel.Age > GameGlobal.ageMax_School)
-        {
-            isDelaySchoolRed = true;
-        }
-        else
-        {
-            isDelaySchoolRed = false;
-        }
-
-        if (isDelaySchoolRed)
-        {
-            srHuman.color = Color.red;
-        }
-        else
-        {
-            srHuman.color = Color.white;
-        }
-    }
     #endregion
 
     #region DragControl
@@ -72,7 +35,7 @@ public partial class HumanManager : MonoBehaviour
     private void DragDeal()
     {
         //Condition
-        SlotManager validSlot = null;
+        SlotBasic validSlot = null;
         bool isHitSlot = false;
         //CheckWhetherSlot
         Vector3 screenPos = PublicTool.GetMousePosition2D();
@@ -84,8 +47,9 @@ public partial class HumanManager : MonoBehaviour
             {
                 if (hit.collider.tag == "Slot")
                 {
-                    GameObject objSlot = hit.collider.gameObject;
-                    SlotManager itemSlot = objSlot.GetComponent<SlotManager>();
+                    Debug.Log("HitSlot");
+                    GameObject objSlot = hit.collider.transform.parent.gameObject;
+                    SlotBasic itemSlot = objSlot.GetComponent<SlotBasic>();
                     if (itemSlot != null && currentSlot != itemSlot)
                     {
                         isHitSlot = true;
@@ -106,14 +70,14 @@ public partial class HumanManager : MonoBehaviour
             //Unbind the current Slot
             if (currentSlot != null)
             {
-                currentSlot.isFilled = false;
+                currentSlot.UnBindHuman(this);
                 currentSlot = null;
             }
             switch (validSlot.slotType)
             {
                 case SlotType.Marriage:
                     this.humanModel.RecordMarried();
-                    GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
+                    //GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
                     dragManager.MoveBackInitialPoint();
                     break;
                 case SlotType.Retire:
@@ -121,8 +85,7 @@ public partial class HumanManager : MonoBehaviour
                     break;
                 default:
                     currentSlot = validSlot;
-                    validSlot.isFilled = true;
-                    SetHumanSlot();
+                    currentSlot.BindHuman(this);
                     break;
             }
         }
@@ -138,7 +101,7 @@ public partial class HumanManager : MonoBehaviour
                 //Back to the Hole
                 if (currentSlot != null)
                 {
-                    currentSlot.isFilled = false;
+                    currentSlot.UnBindHuman(this);
                     currentSlot = null;
                 }
                 dragManager.MoveBackInitialPoint();
@@ -150,31 +113,10 @@ public partial class HumanManager : MonoBehaviour
     {
         if (currentSlot != null)
         {
-            tfHuman.position = currentSlot.transform.position;
-        }
-    }
-
-
-    private void TimeGoCheckDrag()
-    {
-        if (dragManager != null)
-        {
-            dragManager.TimeGoDrag();
-
+            currentSlot.ResetHumanPos(this);
         }
     }
     #endregion
 
-    #region UIControl
 
-    public void RefreshUI()
-    {
-        txAge.text = humanModel.Age.ToString();
-        imgFillEdu.fillAmount = vCurrentEdu / 100f;
-        imgFillFortune.fillAmount = vCurrentFortune / 100f;
-        codeEdu.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentEdu));
-        codeFortune.text = string.Format("{0}%", Mathf.RoundToInt(vCurrentFortune));
-
-    }
-    #endregion 
 }

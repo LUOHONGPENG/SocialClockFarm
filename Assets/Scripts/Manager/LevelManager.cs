@@ -119,6 +119,11 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
+        if (listHuman.Count == 0)
+        {
+            GameManager.Instance.uiManager.ShowEndUI();
+        }
+
         for(int i = 0; i < listHuman.Count; i++)
         {
             listHuman[i].TimeGo();

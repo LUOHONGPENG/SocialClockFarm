@@ -7,6 +7,7 @@ public class GameManager : MonoSingleton<GameManager>
     public LevelManager levelManager;
     public UIManager uiManager;
 
+    public bool isDoubleSpeed = false;
     public bool isUIPageOn = false;
 
 
@@ -19,6 +20,7 @@ public class GameManager : MonoSingleton<GameManager>
     {
         levelManager.Init();
         uiManager.Init();
+        isDoubleSpeed = false;
         isUIPageOn = false;
         yield return new WaitForEndOfFrame();
         uiManager.ShowRecipe();
@@ -32,10 +34,15 @@ public class GameManager : MonoSingleton<GameManager>
         }
         else
         {
-            Time.timeScale = 1;
+            if (isDoubleSpeed)
+            {
+                Time.timeScale = 2f;
+            }
+            else
+            {
+                Time.timeScale = 1f;
+            }
         }
-
-
         levelManager.TimeGo();
     }
 

@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    public InterfaceUIManager interfaceManager;
-    public RetireUIManager retireManager;
-    public RecipeUIManager recipeManager;
+    public InterfaceUIManager interfaceUIManager;
+    public RetireUIManager retireUIManager;
+    public RecipeUIManager recipeUIManager;
+    public EndUIManager endUIManager;
 
     public void Init()
     {
-        interfaceManager.Init();
-        retireManager.Init();
-        recipeManager.Init();
-    }
-
-    public void ShowRecipe()
-    {
-        recipeManager.ShowPopup();
-        GameManager.Instance.isUIPageOn = true;
+        interfaceUIManager.Init();
+        retireUIManager.Init();
+        recipeUIManager.Init();
+        endUIManager.Init();
     }
 
     public void ShowRetire(HumanBasic human)
     {
-        retireManager.ShowPopup(human);
+        retireUIManager.ShowPopup(human);
+        GameManager.Instance.isUIPageOn = true;
+    }
+    public void ShowRecipe()
+    {
+        recipeUIManager.ShowPopup();
+        GameManager.Instance.isUIPageOn = true;
+    }
+
+    public void ShowEndUI()
+    {
+        endUIManager.ShowPopup();
         GameManager.Instance.isUIPageOn = true;
     }
 }

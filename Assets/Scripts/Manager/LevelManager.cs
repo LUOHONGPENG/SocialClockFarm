@@ -32,9 +32,15 @@ public class LevelManager : MonoBehaviour
     {
         listHumanModel.Clear();
         listHuman.Clear();
-        for (int i = 0; i < 4; i++)
+        StartCoroutine(IE_InitHuman());
+    }
+
+    public IEnumerator IE_InitHuman()
+    {
+        for (int i = 0; i < 2; i++)
         {
             CreateHuman();
+            yield return new WaitForSeconds(GameGlobal.timeOneYear * 3);
         }
     }
 

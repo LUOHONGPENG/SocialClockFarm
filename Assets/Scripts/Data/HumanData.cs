@@ -28,6 +28,10 @@ public class HumanModel
     public void AgeGrow()
     {
         this.Age++;
+        if(Age > 80)
+        {
+
+        }
     }
 
     public void TimeGoRecordSchool(float timeDelta,float rateEdu)

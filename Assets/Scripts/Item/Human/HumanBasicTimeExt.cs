@@ -60,6 +60,10 @@ public partial class HumanBasic
     {
         humanModel.AgeGrow();
         RefreshUI();
+        if (humanModel.Age > 80)
+        {
+            GameManager.Instance.levelManager.Retire(this);
+        }
     }
 
     private void DataChange(float timeDelta)

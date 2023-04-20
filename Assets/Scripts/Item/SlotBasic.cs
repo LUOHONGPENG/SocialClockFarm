@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum SlotType
 { 
@@ -55,6 +56,7 @@ public class SlotBasic : MonoBehaviour
     public int slotID;
 
     [Header("ViewInfo")]
+    public Text txVolume;
     public SpriteRenderer srSlot;
     public List<Sprite> listSpSlot = new List<Sprite>();
     private PolygonCollider2D colSlot;
@@ -129,6 +131,7 @@ public class SlotBasic : MonoBehaviour
         {
             conditionUI.InitUI(listCondition[0]);
         }
+        RefreshVolumeView();
     }
 
     #region CheckValid
@@ -173,6 +176,7 @@ public class SlotBasic : MonoBehaviour
                 curVolume++;
                 listPointHuman[i] = humanBasic;
                 ResetHumanPos(humanBasic);
+                RefreshVolumeView();
                 return;
             }
         }
@@ -198,9 +202,26 @@ public class SlotBasic : MonoBehaviour
             {
                 curVolume--;
                 listPointHuman[i] = null;
+                RefreshVolumeView();
             }
         }
     }
     #endregion
 
+    #region VolumeView
+
+    public void RefreshVolumeView()
+    {
+        if(slotType == SlotType.Study|| slotType == SlotType.Job)
+        {
+            txVolume.gameObject.SetActive(true);
+            txVolume.text = string.Format("{0}/{1}", curVolume, maxVolume);
+        }
+        else
+        {
+            txVolume.gameObject.SetActive(false);
+        }
+    }
+
+    #endregion
 }

@@ -86,7 +86,7 @@ public class LevelManager : MonoBehaviour
         CreateSlot(SlotType.Job, 2001, 3, new Vector2(-2f, 0), 16, 60);
         CreateSlot(SlotType.Job, 2002, 2, new Vector2(1f, 0), 23, 45, 30);
         CreateSlot(SlotType.Job, 2003, 1, new Vector2(-2f, -2.5f), 25, 60, 50);
-        CreateSlot(SlotType.Marriage, 3001, 1, new Vector2(6f, 2f), 18, 25, 20,30);
+        CreateSlot(SlotType.Marriage, 3001, 1, new Vector2(6f, 2f), 18, 35, 20,30);
         CreateSlot(SlotType.Retire, 4001, 1, new Vector2(6f, -2.5f), 60, 1000);
 
     }

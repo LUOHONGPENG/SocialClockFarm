@@ -59,6 +59,8 @@ public class SlotBasic : MonoBehaviour
     public List<Sprite> listSpSlot = new List<Sprite>();
     private PolygonCollider2D colSlot;
     public SlotConditionUI conditionUI;
+    public SlotConditionUI conditionUIExtra;
+
 
     [Header("FillInfo")]
     private int maxVolume;
@@ -94,10 +96,10 @@ public class SlotBasic : MonoBehaviour
         this.curVolume = 0;
         //SlotCondition
         listCondition.Clear();
-        if(slotType!= SlotType.Marriage)
+        if(slotType== SlotType.Marriage)
         {
-            listCondition.Add(new SlotCondition(ageMin, ageMax, eduMin, careerMin));
-            listCondition.Add(new SlotCondition(ageMin, ageMax, eduMin, careerMin));
+            listCondition.Add(new SlotCondition(ageMin + Random.Range(-2, 2), ageMax + Random.Range(-5, 12), eduMin, careerMin));
+            listCondition.Add(new SlotCondition(ageMin + Random.Range(-2, 2), ageMax + Random.Range(-5, 12), eduMin, careerMin));
         }
         else
         {
@@ -112,9 +114,16 @@ public class SlotBasic : MonoBehaviour
         srSlot.sprite = listSpSlot[(int)slotType];
         colSlot = srSlot.gameObject.AddComponent<PolygonCollider2D>();
 
-        if(slotType == SlotType.Study)
+        conditionUIExtra.gameObject.SetActive(false);
+        if (slotType == SlotType.Study)
         {
             conditionUI.InitUI(new SlotCondition(GameGlobal.ageMin_School, GameGlobal.ageMax_School, 0,0));
+        }
+        else if(slotType == SlotType.Marriage)
+        {
+            conditionUI.InitUI(listCondition[0]);
+            conditionUIExtra.gameObject.SetActive(true);
+            conditionUIExtra.InitUI(listCondition[1]);
         }
         else
         {

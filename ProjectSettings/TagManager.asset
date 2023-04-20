@@ -45,11 +45,14 @@ TagManager:
   - name: Static
     uniqueID: 3092570823
     locked: 0
-  - name: Villager
+  - name: Human
     uniqueID: 2783112033
     locked: 0
   - name: ObjectUI
     uniqueID: 4063177827
+    locked: 0
+  - name: ObjectEffect
+    uniqueID: 1595363341
     locked: 0
   - name: PageUI
     uniqueID: 1154015969

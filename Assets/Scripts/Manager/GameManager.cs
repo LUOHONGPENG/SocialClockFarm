@@ -7,6 +7,7 @@ public class GameManager : MonoSingleton<GameManager>
     public LevelManager levelManager;
     public EffectUIManager effectUIManager;
     public UIManager uiManager;
+    public SoundManager soundManager;
 
     public bool isDoubleSpeed = false;
     public bool isUIPageOn = false;
@@ -21,6 +22,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         levelManager.Init();
         uiManager.Init();
+        soundManager.Init();
+
         isDoubleSpeed = false;
         isUIPageOn = false;
         yield return new WaitForEndOfFrame();

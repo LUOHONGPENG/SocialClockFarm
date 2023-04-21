@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public LevelManager levelManager;
+    public EffectUIManager effectUIManager;
     public UIManager uiManager;
 
     public bool isDoubleSpeed = false;

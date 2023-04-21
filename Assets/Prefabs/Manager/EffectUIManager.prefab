@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tfEffect: {fileID: 3697063059363888197}
-  pfBubbleTip: {fileID: 0}
+  pfBubbleTip: {fileID: 5065126638462024935, guid: c07253fd0d6c98f429c96e7d2f8e91db, type: 3}
 --- !u!223 &4092530290984009594
 Canvas:
   m_ObjectHideFlags: 0

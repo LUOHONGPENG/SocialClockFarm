@@ -184,6 +184,11 @@ public class LevelManager : MonoBehaviour
                 strError = "Need more Career.";
                 break;
         }
+        if(slotType!= SlotType.Marriage)
+        {
+            GameManager.Instance.effectUIManager.InitBubble(slotType, strError);
+        }
+
         Debug.Log(strError);
     }
 

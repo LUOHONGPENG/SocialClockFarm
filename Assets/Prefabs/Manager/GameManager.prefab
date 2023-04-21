@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 372379885047501648}
+  effectUIManager: {fileID: 7570129308530777865}
   uiManager: {fileID: 3838441441900273683}
   isDoubleSpeed: 0
   isUIPageOn: 0
@@ -226,6 +227,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7094116592210088071, guid: 2f9f95b3a2466bf419e5a2506888fb4b, type: 3}
   m_PrefabInstance: {fileID: 7095879901365138819}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7570129308530777865 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 826165700425149066, guid: 2f9f95b3a2466bf419e5a2506888fb4b, type: 3}
+  m_PrefabInstance: {fileID: 7095879901365138819}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b613bfdfe3c26c24894e66f8b838507d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7098941174713509592
 PrefabInstance:
   m_ObjectHideFlags: 0

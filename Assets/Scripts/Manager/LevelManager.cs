@@ -18,12 +18,16 @@ public class LevelManager : MonoBehaviour
     public GameObject pfSlot;
     private SlotBasic slotMarry;
 
+    public List<int> listMealScore = new List<int>();
+    public int totalScore = 0;
+
     private bool isInit = false;
 
     public void Init()
     {
         InitHuman();
         InitSlot();
+        listMealScore.Clear();
 
         isInit = true;
     }

@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class EndUIManager : MonoBehaviour
 {
-    public Button btnRestart;
-
     public GameObject objPopup;
+
+    public Text txTotalScore;
+    public Button btnRestart;
+    public Transform tfMeal;
+    public GameObject pfMeal;
 
     public void Init()
     {
@@ -21,6 +24,15 @@ public class EndUIManager : MonoBehaviour
 
     public void ShowPopup()
     {
+        List<int> listScore = GameManager.Instance.levelManager.listMealScore;
+        for (int i = 0; i < listScore.Count; i++)
+        {
+            GameObject objMeal = GameObject.Instantiate(pfMeal, tfMeal);
+            EndUIMeal itemMeal = objMeal.GetComponent<EndUIMeal>();
+            itemMeal.Init(listScore[i]);
+        }
+
+        txTotalScore.text = GameManager.Instance.levelManager.totalScore.ToString();
         objPopup.SetActive(true);
     }
     public void HidePopup()

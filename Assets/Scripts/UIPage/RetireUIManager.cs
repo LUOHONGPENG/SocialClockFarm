@@ -32,6 +32,8 @@ public class RetireUIManager : MonoBehaviour
 
         PublicTool.ClearChildItem(tfComment);
         int vScore = CalculateScore(humanModel);
+        GameManager.Instance.levelManager.totalScore += vScore;
+        GameManager.Instance.levelManager.listMealScore.Add(vScore);
         codeScore.text = vScore.ToString();
 
         objPopup.SetActive(true);

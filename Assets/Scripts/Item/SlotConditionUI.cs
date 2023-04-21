@@ -7,6 +7,7 @@ public class SlotConditionUI : MonoBehaviour
 {
     public Text txAge;
     public Text txEdu;
+    public Text txCareer;
     public GameObject objEdu;
 
     public void InitUI(SlotCondition condition)
@@ -28,6 +29,11 @@ public class SlotConditionUI : MonoBehaviour
         else
         {
             objEdu.SetActive(false);
+        }
+
+        if (txCareer != null)
+        {
+            txCareer.text = string.Format(">{0}%", condition.careerMin);
         }
     }
 }

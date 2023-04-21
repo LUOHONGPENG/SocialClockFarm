@@ -16,6 +16,7 @@ public class LevelManager : MonoBehaviour
     public List<SlotBasic> listSlot = new List<SlotBasic>();
     public Transform tfSlot;
     public GameObject pfSlot;
+    private SlotBasic slotMarry;
 
     private bool isInit = false;
 
@@ -89,31 +90,46 @@ public class LevelManager : MonoBehaviour
     {
         listSlot.Clear();
         CreateSlot(SlotType.Study, 1001, 2, new Vector2(-6f, -0.5f), 4, 60);
-        CreateSlot(SlotType.Job, 2001, 3, new Vector2(-2f, 0), 16, 60);
-        CreateSlot(SlotType.Job, 2002, 2, new Vector2(1f, 0), 23, 45, 30);
-        CreateSlot(SlotType.Job, 2003, 1, new Vector2(-2f, -2.5f), 25, 60, 50);
-        CreateSlot(SlotType.Marriage, 3001, 1, new Vector2(6f, 2f), 18, 35, 20,30);
-        CreateSlot(SlotType.Retire, 4001, 1, new Vector2(6f, -2.5f), 60, 1000);
+        CreateSlot(SlotType.Job, 2001, 3, new Vector2(-2.32f, 0.11f), 16, 60);
+        CreateSlot(SlotType.Job, 2002, 2, new Vector2(-0.27f, 0.11f), 23, 45, 30);
+        CreateSlot(SlotType.Job, 2003, 1, new Vector2(1.76f, 0.11f), 25, 60, 50);
+        slotMarry = CreateSlot(SlotType.Marriage, 3001, 1, new Vector2(0.1f, -3.81f), 18, 35, 20,30);
+        CreateSlot(SlotType.Retire, 4001, 1, new Vector2(6f, -0.844f), 60, 1000);
 
     }
 
-    public void CreateSlot(SlotType slotType,int ID, int volume, Vector2 pos, int ageMin, int ageMax, int eduMin = 0, int careerMin = 0)
+    public SlotBasic CreateSlot(SlotType slotType,int ID, int volume, Vector2 pos, int ageMin, int ageMax, int eduMin = 0, int careerMin = 0)
     {
         GameObject objSlot = GameObject.Instantiate(pfSlot, pos, Quaternion.Euler(Vector2.zero), tfSlot);
         SlotBasic itemSlot = objSlot.GetComponent<SlotBasic>();
         itemSlot.Init(slotType, ID, volume, ageMin, ageMax, eduMin, careerMin);
         listSlot.Add(itemSlot);
+        return itemSlot;
+    }
+
+    #endregion
+
+    #region MarryControl
+
+    public int MarryReadyId = -1;
+
+    public void ReachMarriage()
+    {
+        if (MarryReadyId >= 0)
+        {
+            slotMarry.MarryRenewCondition(MarryReadyId);
+            MarryReadyId = -1;
+            CreateHuman();
+        }
     }
 
     #endregion
 
     #region RetireControl
-
     public void Retire(HumanBasic human)
     {
         GameManager.Instance.uiManager.ShowRetire(human);
     }
-
     #endregion
 
     #region TimeControl
@@ -138,5 +154,33 @@ public class LevelManager : MonoBehaviour
 
 
     #endregion
+
+
+    public void TipEffect(SlotType slotType,ErrorType errorType)
+    {
+        string strError = "";
+        switch (errorType)
+        {
+            case ErrorType.Full:
+                strError = "There is full.";
+                break;
+            case ErrorType.isMarried:
+                strError = "You are married.";
+                break;
+            case ErrorType.TooOld:
+                strError = "You are too old.";
+                break;
+            case ErrorType.TooYound:
+                strError = "You are too young.";
+                break;
+            case ErrorType.MoreEdu:
+                strError = "Need more education.";
+                break;
+            case ErrorType.MoreCareer:
+                strError = "Need more Career.";
+                break;
+        }
+        Debug.Log(strError);
+    }
 
 }

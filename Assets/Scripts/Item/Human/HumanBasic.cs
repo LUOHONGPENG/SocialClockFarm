@@ -47,7 +47,6 @@ public partial class HumanBasic : MonoBehaviour
             {
                 if (hit.collider.tag == "Slot")
                 {
-                    Debug.Log("HitSlot");
                     GameObject objSlot = hit.collider.transform.parent.gameObject;
                     SlotBasic itemSlot = objSlot.GetComponent<SlotBasic>();
                     if (itemSlot != null && currentSlot != itemSlot)
@@ -56,7 +55,6 @@ public partial class HumanBasic : MonoBehaviour
                         if (itemSlot.CheckHumanValid(humanModel))
                         {
                             validSlot = itemSlot;
-                            Debug.Log("ValidSlot");
                             break;
                         }
                     }
@@ -77,7 +75,7 @@ public partial class HumanBasic : MonoBehaviour
             {
                 case SlotType.Marriage:
                     this.humanModel.RecordMarried();
-                    //GameManager.Instance.levelManager.ReachMarriage(validSlot.slotID);
+                    GameManager.Instance.levelManager.ReachMarriage();
                     dragManager.MoveBackInitialPoint();
                     break;
                 case SlotType.Retire:

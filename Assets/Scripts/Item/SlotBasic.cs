@@ -118,7 +118,7 @@ public class SlotBasic : MonoBehaviour
         {
             for(int i = 0; i < 2; i++)
             {
-                listCondition.Add(new SlotCondition(slotType,ageMin + Random.Range(-2, 2), ageMax + Random.Range(-5, 12), Random.Range(0, eduMin), Random.Range(0, careerMin)));
+                listCondition.Add(new SlotCondition(slotType,ageMin + Random.Range(-2, 2), ageMax + Random.Range(-5, 12), Random.Range(1, eduMin), Random.Range(1, careerMin)));
             }
         }
         else
@@ -161,7 +161,7 @@ public class SlotBasic : MonoBehaviour
             SlotConditionUI itemCondition = objCondition.GetComponent<SlotConditionUI>();
             itemCondition.InitUI(listCondition[0]);
         }
-        else
+        else//Marriage
         {
             for(int i = 0; i < listCondition.Count; i++)
             {

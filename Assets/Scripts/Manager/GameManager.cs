@@ -11,6 +11,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public bool isDoubleSpeed = false;
     public bool isUIPageOn = false;
+    public bool isEnd = false;
 
 
     public override void Init()
@@ -26,6 +27,7 @@ public class GameManager : MonoSingleton<GameManager>
 
         isDoubleSpeed = false;
         isUIPageOn = false;
+        isEnd = false;
         yield return new WaitForEndOfFrame();
         uiManager.ShowRecipe();
     }

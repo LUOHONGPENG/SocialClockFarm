@@ -62,6 +62,12 @@ public partial class HumanBasic
         RefreshUI();
         if (humanModel.Age > 80)
         {
+            if (currentSlot != null)
+            {
+                currentSlot.UnBindHuman(this);
+                currentSlot = null;
+            }
+
             GameManager.Instance.levelManager.Retire(this);
         }
     }

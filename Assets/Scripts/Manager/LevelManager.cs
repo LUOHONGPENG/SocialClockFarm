@@ -132,6 +132,7 @@ public class LevelManager : MonoBehaviour
     #region RetireControl
     public void Retire(HumanBasic human)
     {
+        GameManager.Instance.soundManager.PlaySound(SoundType.Retire);
         GameManager.Instance.uiManager.ShowRetire(human);
     }
     #endregion
@@ -147,7 +148,15 @@ public class LevelManager : MonoBehaviour
 
         if (listHuman.Count == 0)
         {
-            GameManager.Instance.uiManager.ShowEndUI();
+            if (!GameManager.Instance.isEnd)
+            {
+                GameManager.Instance.uiManager.ShowEndUI();
+                GameManager.Instance.isEnd = true;
+            }
+            else
+            {
+                return;
+            }
         }
 
         for(int i = 0; i < listHuman.Count; i++)
@@ -163,31 +172,43 @@ public class LevelManager : MonoBehaviour
     public void TipEffect(SlotType slotType,ErrorType errorType)
     {
         string strError = "";
+
+        if (slotType == SlotType.Marriage && errorType != ErrorType.isMarried)
+        {
+            return;
+        }
+
         switch (errorType)
         {
             case ErrorType.Full:
+                GameManager.Instance.soundManager.PlaySound(SoundType.NoSpace);
                 strError = "There is full.";
                 break;
             case ErrorType.isMarried:
+                GameManager.Instance.soundManager.PlaySound(SoundType.Married);
                 strError = "You are married.";
                 break;
             case ErrorType.TooOld:
+                GameManager.Instance.soundManager.PlaySound(SoundType.TooOld);
                 strError = "You are too old.";
                 break;
             case ErrorType.TooYound:
+                GameManager.Instance.soundManager.PlaySound(SoundType.TooYoung);
                 strError = "You are too young.";
                 break;
             case ErrorType.MoreEdu:
+                GameManager.Instance.soundManager.PlaySound(SoundType.MoreEdu);
                 strError = "Need more education.";
                 break;
             case ErrorType.MoreCareer:
+                GameManager.Instance.soundManager.PlaySound(SoundType.MoreCareer);
                 strError = "Need more Career.";
                 break;
         }
-        if(slotType!= SlotType.Marriage)
-        {
-            GameManager.Instance.effectUIManager.InitBubble(slotType, strError);
-        }
+
+
+        GameManager.Instance.effectUIManager.InitBubble(slotType, strError);
+
 
         Debug.Log(strError);
     }

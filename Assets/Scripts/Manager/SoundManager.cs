@@ -45,6 +45,9 @@ public class SoundManager : MonoBehaviour
         dicSoundAudio.Add(SoundType.Job, auJob);
         dicSoundAudio.Add(SoundType.Marriage, auMarriage);
         dicSoundAudio.Add(SoundType.Retire, auRetire);
+
+        dicSoundTime.Clear();
+        dicSoundTime.Add(SoundType.Marriage, 0.7f);
     }
 
     public void PlaySound(SoundType soundType)
@@ -54,6 +57,10 @@ public class SoundManager : MonoBehaviour
             AudioSource targetSound = dicSoundAudio[soundType];
 
             float playTime = 0.5f;
+            if (dicSoundTime.ContainsKey(soundType))
+            {
+                playTime = dicSoundTime[soundType];
+            }
 
             targetSound.time = playTime;
             targetSound.Play();

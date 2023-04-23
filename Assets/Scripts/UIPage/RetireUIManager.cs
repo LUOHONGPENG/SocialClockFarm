@@ -80,18 +80,18 @@ public class RetireUIManager : MonoBehaviour
         totalScore += tempScore;
 
 
-        //Income
+        //Career
         if (humanModel.vCareer > 60)
         {
-            strComment = "High Income. Smooth taste!";
+            strComment = "Nice Career. Smooth taste!";
         }
         else if (humanModel.vCareer >= 30)
         {
-            strComment = "Normal Income. Not bad!";
+            strComment = "Normal Career. Not bad!";
         }
         else
         {
-            strComment = "Low Income. Woody taste!";
+            strComment = "Poor Career. Woody taste!";
         }
         tempScore = -600 + Mathf.RoundToInt(humanModel.vCareer) * 20;
         CreateComment(strComment, tempScore);
@@ -134,11 +134,21 @@ public class RetireUIManager : MonoBehaviour
             totalScore += tempScore;
         }
 
-        //Delay Graduation
+        //EarlyStudy
+        if(humanModel.vFirstStudyAge < GameGlobal.ageMin_School)
+        {
+            int vEarlyStudy = Mathf.FloorToInt(GameGlobal.ageMin_School - humanModel.vFirstStudyAge);
+            strComment = string.Format("Oh! Early Study");
+            tempScore = +100 * vEarlyStudy;
+            CreateComment(strComment, tempScore);
+            totalScore += tempScore;
+        }
+
+        //Late Graduation
         if (humanModel.vDelayGraduationYear > 1f)
         {
             int vDelay = Mathf.FloorToInt(humanModel.vDelayGraduationYear);
-            strComment = string.Format("Delay Graduation?!");
+            strComment = string.Format("Late Graduation?!");
             tempScore = -100 * vDelay;
             CreateComment(strComment, tempScore);
             totalScore += tempScore;

@@ -77,11 +77,18 @@ public partial class HumanBasic : MonoBehaviour
                     this.humanModel.RecordMarried();
                     GameManager.Instance.levelManager.ReachMarriage();
                     dragManager.MoveBackInitialPoint();
+                    GameManager.Instance.soundManager.PlaySound(SoundType.Marriage);
                     break;
                 case SlotType.Retire:
                     GameManager.Instance.levelManager.Retire(this);
                     break;
-                default:
+                case SlotType.Study:
+                    GameManager.Instance.soundManager.PlaySound(SoundType.Study);
+                    currentSlot = validSlot;
+                    currentSlot.BindHuman(this);
+                    break;
+                case SlotType.Job:
+                    GameManager.Instance.soundManager.PlaySound(SoundType.Job);
                     currentSlot = validSlot;
                     currentSlot.BindHuman(this);
                     break;

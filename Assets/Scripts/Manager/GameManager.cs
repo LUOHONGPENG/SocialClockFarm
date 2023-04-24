@@ -21,6 +21,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public IEnumerator IE_Init()
     {
+        BinaryDataManager.Instance.Init();
         levelManager.Init();
         uiManager.Init();
         soundManager.Init();

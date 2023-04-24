@@ -12,7 +12,7 @@ public class ExcelTool
 
     public static string DATA_CLASS_PATH = Application.dataPath + "/Scripts/ExcelData/DataClass/";
 
-    public static string DATA_CONTAINER_PATH = Application.dataPath + "Scripts/ExcelData/Container/";
+    public static string DATA_CONTAINER_PATH = Application.dataPath + "/Scripts/ExcelData/Container/";
 
     [MenuItem("GameTool/GenerateExcel")]
     private static void GenerateExcelInfo()

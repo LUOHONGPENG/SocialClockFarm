@@ -43,7 +43,7 @@ public class BinaryDataManager:ISingleton
 
     public void Init()
     {
-        throw new NotImplementedException();
+        LoadTable<SlotDataContainer, SlotData>();
     }
 
     public void LoadTable<T, K>()

@@ -134,7 +134,7 @@ public class ExcelTool
         {
             Directory.CreateDirectory(DATA_BINARY_PATH);
         }
-        using (FileStream fs = new FileStream(DATA_CONTAINER_PATH + table.TableName + ".rabbit", FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream(DATA_BINARY_PATH + table.TableName + ".rabbit", FileMode.OpenOrCreate, FileAccess.Write))
         {
             //Save how many row we need to write in
             fs.Write(BitConverter.GetBytes(table.Rows.Count - 3), 0, 4);

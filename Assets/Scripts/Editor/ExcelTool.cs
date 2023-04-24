@@ -14,6 +14,8 @@ public class ExcelTool
 
     public static string DATA_CONTAINER_PATH = Application.dataPath + "/Scripts/ExcelData/Container/";
 
+    public static string DATA_BINARY_PATH = Application.streamingAssetsPath + "/Binary";
+
     [MenuItem("GameTool/GenerateExcel")]
     private static void GenerateExcelInfo()
     {
@@ -103,7 +105,9 @@ public class ExcelTool
         str += "public Dictionary<" + rowType[keyIndex].ToString() + "," + table.TableName + ">";
         str += "dataDic = new " + "Dictionary<" + rowType[keyIndex].ToString() + ", " + table.TableName + ">();\n";
         str += "}";
+        
         File.WriteAllText(DATA_CONTAINER_PATH + "/" + table.TableName + "Container.cs", str);
+        
         AssetDatabase.Refresh();
     }
 
@@ -126,20 +130,24 @@ public class ExcelTool
 
     private static void GenerateExcelBinary(DataTable table)
     {
-        if (!Directory.Exists(DATA_CONTAINER_PATH))
+        if (!Directory.Exists(DATA_BINARY_PATH))
         {
-            Directory.CreateDirectory(DATA_CONTAINER_PATH);
+            Directory.CreateDirectory(DATA_BINARY_PATH);
         }
-        using (FileStream fs = new FileStream(DATA_CONTAINER_PATH + table.TableName + ".mqx", FileMode.OpenOrCreate, FileAccess.Write))
+        using (FileStream fs = new FileStream(DATA_CONTAINER_PATH + table.TableName + ".rabbit", FileMode.OpenOrCreate, FileAccess.Write))
         {
+            //Save how many row we need to write in
             fs.Write(BitConverter.GetBytes(table.Rows.Count - 3), 0, 4);
+            //Save the key name
             string keyName = GetVariableNameRow(table)[GetKeyIndex(table)].ToString();
             byte[] bytes = Encoding.UTF8.GetBytes(keyName);
+            
             fs.Write(BitConverter.GetBytes(bytes.Length), 0, 4);
+            
             fs.Write(bytes, 0, bytes.Length);
             DataRow row;
             DataRow rowType = GetVariableTypeRow(table);
-            for(int i = 0; i < table.Rows.Count; i++)
+            for(int i = 2; i < table.Rows.Count; i++)
             {
                 row = table.Rows[i];
                 for(int j = 0; j < table.Columns.Count; j++)

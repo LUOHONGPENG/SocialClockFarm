@@ -43,12 +43,12 @@ public class BinaryDataManager:ISingleton
 
     public void Init()
     {
-        LoadTable<SlotDataContainer, SlotData>();
+        //LoadTable<SlotDataContainer, SlotData>();
     }
 
     public void LoadTable<T, K>()
     {
-        using (FileStream fs = File.Open(DATA_BINARY_PATH + typeof(K).Name + ".tang", FileMode.Open, FileAccess.Read))
+        using (FileStream fs = File.Open(DATA_BINARY_PATH + typeof(K).Name + ".rabbit", FileMode.Open, FileAccess.Read))
         {
             byte[] bytes = new byte[fs.Length];
             fs.Read(bytes, 0, bytes.Length);
